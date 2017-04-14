@@ -1,66 +1,58 @@
-﻿using System.Globalization;
+﻿using System;
 using System.Windows.Input;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
-using Prism.Modularity;
-using Prism.Regions;
 
 namespace CC.Module.BottomOperationPanel.ViewModels
 {
     public class ButtonBarViewModel
     {
         public ICommand CopyFileCommand { get; }
+        public ICommand MoveFileCommand { get; }
+        public ICommand NewFolderCommand { get; }
+        public ICommand DeleteFileCommand { get; }
+        public ICommand ExitProgramCommand { get; }
 
-        private IRegionManager _regionManager;
-        private IUnityContainer _unityContainer;
-        private IModuleManager _moduleManager;
+        private readonly IUnityContainer _unityContainer;
+        private readonly IEventAggregator _eventAggregator;
 
-        public ButtonBarViewModel(
-            IRegionManager regionManager, IModuleManager moduleManager, IUnityContainer container)
+        public ButtonBarViewModel(IUnityContainer container, IEventAggregator eventAggregator)
         {
-            _regionManager = regionManager;
-            _moduleManager = moduleManager;
             _unityContainer = container;
+            _eventAggregator = eventAggregator;
 
             CopyFileCommand = new DelegateCommand(ExecuteCopyFileCommand);
+            MoveFileCommand = new DelegateCommand(ExecuteMoveFileCommand);
+            NewFolderCommand = new DelegateCommand(ExecuteNewFolderCommand);
+            DeleteFileCommand = new DelegateCommand(ExecuteDeleteFileCommand);
+            ExitProgramCommand = new DelegateCommand(ExecuteExitProgramCommand);
+
         }
 
         private void ExecuteCopyFileCommand()
         {
-            
+            throw new NotImplementedException();
         }
 
-        public ICommand MoveFileCommand
+        private void ExecuteMoveFileCommand()
         {
-            get
-            {
-                return null;
-            }
+            throw new NotImplementedException();
         }
 
-        public ICommand NewFolderCommand
+        private void ExecuteNewFolderCommand()
         {
-            get
-            {
-                return null;
-            }
+            throw new NotImplementedException();
         }
 
-        public ICommand DeleteFileCommand
+        private void ExecuteDeleteFileCommand()
         {
-            get
-            {
-                return null;
-            }
+            throw new NotImplementedException();
         }
 
-        public ICommand ExitProgramCommand
+        private void ExecuteExitProgramCommand()
         {
-            get
-            {
-                return null;
-            }
+            throw new NotImplementedException();
         }
     }
 }

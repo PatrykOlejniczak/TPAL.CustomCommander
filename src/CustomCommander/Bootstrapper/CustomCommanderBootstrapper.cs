@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using CC.Module.BottomOperationPanel;
 using CC.Module.BottomOperationPanel.ViewModels;
+using Microsoft.Practices.Prism.PubSubEvents;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Prism.Unity;
@@ -30,6 +31,8 @@ namespace CustomCommander.Bootstrapper
 
         protected override void ConfigureContainer()
         {
+            Container.RegisterType<EventAggregator>();
+
             Container.RegisterType<ButtonBarViewModel>();
 
             base.ConfigureContainer();

@@ -17,7 +17,12 @@ namespace CC.Module.Navigation
 
         public void Initialize()
         {
-            throw new System.NotImplementedException();
+            /*
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("pl-PL");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("pl-PL");
+
+            _eventAggregator.GetEvent<LanguageChangedEvent>().Publish();
+            */
         }
     }
 }

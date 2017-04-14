@@ -11,13 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CC.Modules", "CC.Modules", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC.Common.Infrastructure", "CC.Common.Infrastructure\CC.Common.Infrastructure.csproj", "{7132416A-949F-4D3E-82DE-A28053A9D235}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC.Modul.Navigation", "CC.Modul.Navigation\CC.Modul.Navigation.csproj", "{764C8BD5-91C2-4B89-AE57-4DE221C8296D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC.Module.Navigation", "CC.Module.Navigation\CC.Module.Navigation.csproj", "{764C8BD5-91C2-4B89-AE57-4DE221C8296D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC.Modul.TopOperationPanel", "CC.Modul.TopOperationPanel\CC.Modul.TopOperationPanel.csproj", "{44CBCD52-E6D0-4582-BB0F-9CB7B2D793C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC.Module.TopOperationPanel", "CC.Module.TopOperationPanel\CC.Module.TopOperationPanel.csproj", "{44CBCD52-E6D0-4582-BB0F-9CB7B2D793C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC.Modul.BottomOperationPanel", "CC.Modul.BottomOperationPanel\CC.Modul.BottomOperationPanel.csproj", "{E95641AF-ACD1-4F6C-8A26-88BA2752FB0D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC.Module.BottomOperationPanel", "CC.Module.BottomOperationPanel\CC.Module.BottomOperationPanel.csproj", "{E95641AF-ACD1-4F6C-8A26-88BA2752FB0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC.Modul.FileExplorer", "CC.Modul.FileExplorer\CC.Modul.FileExplorer.csproj", "{B11B8370-D64D-40CB-B5E9-E9C14E219AAF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC.Module.FileExplorer", "CC.Module.FileExplorer\CC.Module.FileExplorer.csproj", "{B11B8370-D64D-40CB-B5E9-E9C14E219AAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

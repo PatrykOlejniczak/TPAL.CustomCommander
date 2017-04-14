@@ -133,21 +133,25 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CC.Modul.BottomOperationPanel\CC.Modul.BottomOperationPanel.csproj">
+    <ProjectReference Include="..\CC.Common.Infrastructure\CC.Common.Infrastructure.csproj">
+      <Project>{7132416a-949f-4d3e-82de-a28053a9d235}</Project>
+      <Name>CC.Common.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CC.Module.BottomOperationPanel\CC.Module.BottomOperationPanel.csproj">
       <Project>{e95641af-acd1-4f6c-8a26-88ba2752fb0d}</Project>
-      <Name>CC.Modul.BottomOperationPanel</Name>
+      <Name>CC.Module.BottomOperationPanel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CC.Modul.FileExplorer\CC.Modul.FileExplorer.csproj">
+    <ProjectReference Include="..\CC.Module.FileExplorer\CC.Module.FileExplorer.csproj">
       <Project>{b11b8370-d64d-40cb-b5e9-e9c14e219aaf}</Project>
-      <Name>CC.Modul.FileExplorer</Name>
+      <Name>CC.Module.FileExplorer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CC.Modul.Navigation\CC.Modul.Navigation.csproj">
+    <ProjectReference Include="..\CC.Module.Navigation\CC.Module.Navigation.csproj">
       <Project>{764c8bd5-91c2-4b89-ae57-4de221c8296d}</Project>
-      <Name>CC.Modul.Navigation</Name>
+      <Name>CC.Module.Navigation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CC.Modul.TopOperationPanel\CC.Modul.TopOperationPanel.csproj">
+    <ProjectReference Include="..\CC.Module.TopOperationPanel\CC.Module.TopOperationPanel.csproj">
       <Project>{44cbcd52-e6d0-4582-bb0f-9cb7b2d793c1}</Project>
-      <Name>CC.Modul.TopOperationPanel</Name>
+      <Name>CC.Module.TopOperationPanel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,14 +2,14 @@
 using Prism.Modularity;
 using Prism.Regions;
 
-namespace CC.Module.TopOperationPanel
+namespace CC.Module.Navigation
 {
-    public class TopOperationPanelModule : IModule
+    public class NavigationModule : IModule
     {
         private readonly IRegionManager _regionManager;
         private readonly IUnityContainer _container;
 
-        public TopOperationPanelModule(IUnityContainer container, IRegionManager regionManager)
+        public NavigationModule(IUnityContainer container, IRegionManager regionManager)
         {
             _container = container;
             _regionManager = regionManager;
@@ -17,7 +17,7 @@ namespace CC.Module.TopOperationPanel
 
         public void Initialize()
         {
-           
+            throw new System.NotImplementedException();
         }
     }
 }

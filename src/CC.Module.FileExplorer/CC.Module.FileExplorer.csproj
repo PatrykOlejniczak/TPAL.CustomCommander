@@ -82,6 +82,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -97,24 +99,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileExplorerModule.cs" />
+    <Compile Include="Models\FileModel.cs" />
+    <Compile Include="Models\ObservableFiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resource.en-US.Designer.cs">
-      <DependentUpon>Resource.en-US.resx</DependentUpon>
+    <Compile Include="Properties\Resources.en-US.Designer.cs">
+      <DependentUpon>Resources.en-US.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Properties\Resource.pl-PL.Designer.cs">
-      <DependentUpon>Resource.pl-PL.resx</DependentUpon>
+    <Compile Include="Properties\Resources.pl-PL.Designer.cs">
+      <DependentUpon>Resources.pl-PL.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Properties\Resource.Designer.cs">
+    <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.resx</DependentUpon>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\FileTreeViewModel.cs" />
     <Compile Include="Views\FileExplorerView.xaml.cs">
       <DependentUpon>FileExplorerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FileTreeView.xaml.cs">
+      <DependentUpon>FileTreeView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -126,29 +134,34 @@
       <Project>{7132416a-949f-4d3e-82de-a28053a9d235}</Project>
       <Name>CC.Common.Infrastructure</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resource.en-US.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource.en-US.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resource.pl-PL.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource.pl-PL.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <ProjectReference Include="..\CC.Common.Popup\CC.Common.Popup.csproj">
+      <Project>{f2ee8bee-72f3-46d5-81e3-8a079cabee2b}</Project>
+      <Name>CC.Common.Popup</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\FileExplorerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\FileTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.en-US.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.en-US.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.pl-PL.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.pl-PL.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

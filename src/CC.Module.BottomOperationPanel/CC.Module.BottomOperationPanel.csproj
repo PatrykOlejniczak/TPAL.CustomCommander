@@ -82,6 +82,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -142,6 +144,10 @@
     <ProjectReference Include="..\CC.Common.Infrastructure\CC.Common.Infrastructure.csproj">
       <Project>{7132416a-949f-4d3e-82de-a28053a9d235}</Project>
       <Name>CC.Common.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CC.Common.Popup\CC.Common.Popup.csproj">
+      <Project>{f2ee8bee-72f3-46d5-81e3-8a079cabee2b}</Project>
+      <Name>CC.Common.Popup</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

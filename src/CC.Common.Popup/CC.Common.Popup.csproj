@@ -97,6 +97,16 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
+    <Folder Include="Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CC.Common.Infrastructure\CC.Common.Infrastructure.csproj">
+      <Project>{7132416a-949f-4d3e-82de-a28053a9d235}</Project>
+      <Name>CC.Common.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

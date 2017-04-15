@@ -1,7 +1,8 @@
 ﻿<UserControl x:Class="CC.Module.FileExplorer.Views.FileExplorerView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:views="clr-namespace:CC.Module.FileExplorer.Views">
     <Grid>
-          
+        <views:FileTreeView x:Name="FileTreeView" />    
     </Grid>
 </UserControl>

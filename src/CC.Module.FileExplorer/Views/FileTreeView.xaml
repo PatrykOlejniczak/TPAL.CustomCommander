@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="CC.Module.FileExplorer.Views.FileTreeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid>
+        <ListView ItemsSource="{Binding FilesView}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader x:Name="NameHeader"
+                                                  Content="Name"
+                                                  Command="{Binding SortFilesCommand}"
+                                                  CommandParameter="Name"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Extension}">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader x:Name="ExtensionHeader"
+                                                  Content="Extension"
+                                                  Command="{Binding SortFilesCommand}"
+                                                  CommandParameter="Extension"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Size}">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader x:Name="SizeHeader"
+                                                  Content="Size"
+                                                  Command="{Binding SortFilesCommand}"
+                                                  CommandParameter="Size"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding LastModyfication}">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader x:Name="LastModificationHeader"
+                                                  Content="Last modification"
+                                                  Command="{Binding SortFilesCommand}"
+                                                  CommandParameter="LastModyfication"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</UserControl>

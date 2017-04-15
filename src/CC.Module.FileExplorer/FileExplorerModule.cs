@@ -1,5 +1,6 @@
 ﻿using CC.Module.FileExplorer.Views;
 using Microsoft.Practices.Unity;
+using Prism.Events;
 using Prism.Modularity;
 using Prism.Regions;
 
@@ -12,11 +13,13 @@ namespace CC.Module.FileExplorer
 
         private readonly IRegionManager _regionManager;
         private readonly IUnityContainer _container;
+        private readonly IEventAggregator _eventAggregator;
 
-        public FileExplorerModule(IUnityContainer container, IRegionManager regionManager)
+        public FileExplorerModule(IUnityContainer container, IRegionManager regionManager, IEventAggregator eventAggregator)
         {
             _container = container;
             _regionManager = regionManager;
+            _eventAggregator = eventAggregator;
         }
 
         public void Initialize()

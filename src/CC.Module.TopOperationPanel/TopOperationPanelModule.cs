@@ -22,8 +22,6 @@ namespace CC.Module.TopOperationPanel
         {
             _regionManager.RegisterViewWithRegion(ModuleRegionName,
                                 () => _container.Resolve<TopOperationPanelView>());
-
-            _regionManager.AddToRegion(ModuleRegionName, typeof(LanguagePanelView));
         }
     }
 }

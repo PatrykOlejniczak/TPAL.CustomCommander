@@ -115,8 +115,8 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="ViewModels\ButtonBarViewModel.cs" />
-    <Compile Include="Views\ButtonBar.xaml.cs">
-      <DependentUpon>ButtonBar.xaml</DependentUpon>
+    <Compile Include="Views\ButtonBarView.xaml.cs">
+      <DependentUpon>ButtonBarView.xaml</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
@@ -145,7 +145,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\ButtonBar.xaml">
+    <Page Include="Views\ButtonBarView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

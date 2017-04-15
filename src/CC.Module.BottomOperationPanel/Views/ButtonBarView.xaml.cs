@@ -7,9 +7,9 @@ namespace CC.Module.BottomOperationPanel.Views
     /// <summary>
     /// Interaction logic for ButtonBar.xaml
     /// </summary>
-    public partial class ButtonBar : UserControl
+    public partial class ButtonBarView : UserControl
     {
-        public ButtonBar(IEventAggregator eventAggregator)
+        public ButtonBarView(IEventAggregator eventAggregator)
         {
             eventAggregator.GetEvent<LanguageChangedEvent>().Subscribe(UpdateTranslations);
 

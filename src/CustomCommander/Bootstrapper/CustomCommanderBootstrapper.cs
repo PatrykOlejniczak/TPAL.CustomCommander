@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using CC.Module.BottomOperationPanel;
 using CC.Module.BottomOperationPanel.ViewModels;
+using CC.Module.FileExplorer;
 using CC.Module.TopOperationPanel;
 using CC.Module.TopOperationPanel.ViewModels;
 using Microsoft.Practices.Prism.PubSubEvents;
@@ -27,10 +28,11 @@ namespace CustomCommander.Bootstrapper
 
         protected override void ConfigureModuleCatalog()
         {
-            ModuleCatalog moduleCatalog = (ModuleCatalog)ModuleCatalog;
-
-            moduleCatalog.AddModule(typeof(BottomOperationPanelModule));
+            ModuleCatalog moduleCatalog = (ModuleCatalog)ModuleCatalog;            
+            
             moduleCatalog.AddModule(typeof(TopOperationPanelModule));
+            moduleCatalog.AddModule(typeof(FileExplorerModule));
+            moduleCatalog.AddModule(typeof(BottomOperationPanelModule));
         }
 
         protected override void ConfigureContainer()

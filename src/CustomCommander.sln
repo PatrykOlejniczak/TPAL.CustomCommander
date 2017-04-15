@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC.Module.BottomOperationPa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC.Module.FileExplorer", "CC.Module.FileExplorer\CC.Module.FileExplorer.csproj", "{B11B8370-D64D-40CB-B5E9-E9C14E219AAF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CC.Common.Popup", "CC.Common.Popup\CC.Common.Popup.csproj", "{F2EE8BEE-72F3-46D5-81E3-8A079CABEE2B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{B11B8370-D64D-40CB-B5E9-E9C14E219AAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B11B8370-D64D-40CB-B5E9-E9C14E219AAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B11B8370-D64D-40CB-B5E9-E9C14E219AAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2EE8BEE-72F3-46D5-81E3-8A079CABEE2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2EE8BEE-72F3-46D5-81E3-8A079CABEE2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2EE8BEE-72F3-46D5-81E3-8A079CABEE2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2EE8BEE-72F3-46D5-81E3-8A079CABEE2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,5 +65,6 @@ Global
 		{44CBCD52-E6D0-4582-BB0F-9CB7B2D793C1} = {F9F44BF1-B913-4850-B70F-DA9DACD856B3}
 		{E95641AF-ACD1-4F6C-8A26-88BA2752FB0D} = {F9F44BF1-B913-4850-B70F-DA9DACD856B3}
 		{B11B8370-D64D-40CB-B5E9-E9C14E219AAF} = {F9F44BF1-B913-4850-B70F-DA9DACD856B3}
+		{F2EE8BEE-72F3-46D5-81E3-8A079CABEE2B} = {CD993D5F-9B7B-41AA-B541-9DF2DBA10FEB}
 	EndGlobalSection
 EndGlobal

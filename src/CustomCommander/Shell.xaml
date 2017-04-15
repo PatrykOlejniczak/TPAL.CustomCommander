@@ -1,7 +1,6 @@
 ﻿<Window x:Class="CustomCommander.Shell"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:prism="http://www.codeplex.com/CompositeWPF"
         xmlns:regions="http://prismlibrary.com/"
         Title="Shell" Height="600" Width="800">
     <Grid>
@@ -10,11 +9,19 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
+
         <Grid Grid.Row="0">
             <ContentControl regions:RegionManager.RegionName="TopOperationPanelRegion" />
         </Grid>
-        <Grid Grid.Row="1" Background="Orange">
-            <!--<ContentControl regions:RegionManager.RegionName="RequestInfoRegion" />-->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <ContentControl Grid.Column="0" regions:RegionManager.RegionName="FileExplorerRegionLeft" />
+            <ContentControl Grid.Column="2" regions:RegionManager.RegionName="FileExplorerRegionRight" />
         </Grid>
         <Grid Grid.Row="2">
             <ContentControl regions:RegionManager.RegionName="BottomOperationPanelRegion" />

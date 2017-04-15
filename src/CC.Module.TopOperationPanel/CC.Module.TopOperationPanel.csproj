@@ -115,8 +115,8 @@
     </Compile>
     <Compile Include="TopOperationPanelModule.cs" />
     <Compile Include="ViewModels\LanguagePanelViewModel.cs" />
-    <Compile Include="Views\LanguagePanel.xaml.cs">
-      <DependentUpon>LanguagePanel.xaml</DependentUpon>
+    <Compile Include="Views\LanguagePanelView.xaml.cs">
+      <DependentUpon>LanguagePanelView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TopOperationPanelView.xaml.cs">
       <DependentUpon>TopOperationPanelView.xaml</DependentUpon>
@@ -147,7 +147,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\LanguagePanel.xaml">
+    <Page Include="Views\LanguagePanelView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

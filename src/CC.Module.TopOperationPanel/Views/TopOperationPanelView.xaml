@@ -8,6 +8,6 @@
             <ColumnDefinition Width="*" MaxWidth="100"/>
         </Grid.ColumnDefinitions>
 
-        <views:LanguagePanel Grid.Column="1"/>
+        <views:LanguagePanelView Grid.Column="1"/>
     </Grid>
 </UserControl>

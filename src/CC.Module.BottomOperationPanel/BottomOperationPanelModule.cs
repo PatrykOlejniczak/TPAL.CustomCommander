@@ -21,7 +21,7 @@ namespace CC.Module.BottomOperationPanel
         public void Initialize()
         {
             _regionManager.RegisterViewWithRegion(ModuleRegionName,
-                                           () => _container.Resolve<ButtonBar>());
+                                           () => _container.Resolve<ButtonBarView>());
         }
     }
 }

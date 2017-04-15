@@ -2,12 +2,13 @@
 using System.Threading;
 using System.Windows.Input;
 using CC.Common.Infrastructure.Events;
+using Microsoft.Practices.Prism.Mvvm;
 using Prism.Events;
 using Prism.Commands;
 
 namespace CC.Module.TopOperationPanel.ViewModels
 {
-    public class LanguagePanelViewModel
+    public class LanguagePanelViewModel : BindableBase
     {
         public ICommand ChangeApplicationLanguageCommand { get; }
 

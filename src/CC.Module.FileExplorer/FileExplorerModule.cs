@@ -1,4 +1,5 @@
-﻿using Microsoft.Practices.Unity;
+﻿using CC.Module.FileExplorer.Views;
+using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Prism.Regions;
 
@@ -6,7 +7,8 @@ namespace CC.Module.FileExplorer
 {
     public class FileExplorerModule : IModule
     {
-        private const string ModuleRegionName = "";
+        private const string ModuleRegionNameLeft = "FileExplorerRegionLeft";
+        private const string ModuleRegionNameRight = "FileExplorerRegionRight";
 
         private readonly IRegionManager _regionManager;
         private readonly IUnityContainer _container;
@@ -19,7 +21,10 @@ namespace CC.Module.FileExplorer
 
         public void Initialize()
         {
-            throw new System.NotImplementedException();
+            _regionManager.RegisterViewWithRegion(ModuleRegionNameLeft,
+                    () => _container.Resolve<FileExplorerView>());
+            _regionManager.RegisterViewWithRegion(ModuleRegionNameRight,
+                    () => _container.Resolve<FileExplorerView>());
         }
     }
 }

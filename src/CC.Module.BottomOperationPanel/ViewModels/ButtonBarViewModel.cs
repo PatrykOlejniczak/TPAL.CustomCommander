@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Windows.Input;
+using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
 
 namespace CC.Module.BottomOperationPanel.ViewModels
 {
-    public class ButtonBarViewModel
+    public class ButtonBarViewModel : BindableBase
     {
         public ICommand CopyFileCommand { get; }
         public ICommand MoveFileCommand { get; }

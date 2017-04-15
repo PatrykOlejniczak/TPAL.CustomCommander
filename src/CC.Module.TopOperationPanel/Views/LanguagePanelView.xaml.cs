@@ -5,9 +5,9 @@ namespace CC.Module.TopOperationPanel.Views
     /// <summary>
     /// Interaction logic for LanguagePanel.xaml
     /// </summary>
-    public partial class LanguagePanel : UserControl
+    public partial class LanguagePanelView : UserControl
     {
-        public LanguagePanel()
+        public LanguagePanelView()
         {
             InitializeComponent();
         }

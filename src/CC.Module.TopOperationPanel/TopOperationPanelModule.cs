@@ -1,4 +1,5 @@
-﻿using Microsoft.Practices.Unity;
+﻿using CC.Module.TopOperationPanel.Views;
+using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Prism.Regions;
 
@@ -6,6 +7,8 @@ namespace CC.Module.TopOperationPanel
 {
     public class TopOperationPanelModule : IModule
     {
+        private const string ModuleRegionName = "TopOperationPanelRegion";
+
         private readonly IRegionManager _regionManager;
         private readonly IUnityContainer _container;
 
@@ -17,7 +20,10 @@ namespace CC.Module.TopOperationPanel
 
         public void Initialize()
         {
-           
+            _regionManager.RegisterViewWithRegion(ModuleRegionName,
+                                () => _container.Resolve<TopOperationPanelView>());
+
+            _regionManager.AddToRegion(ModuleRegionName, typeof(LanguagePanel));
         }
     }
 }

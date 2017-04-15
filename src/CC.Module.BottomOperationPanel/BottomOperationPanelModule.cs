@@ -7,6 +7,8 @@ namespace CC.Module.BottomOperationPanel
 {
     public class BottomOperationPanelModule : IModule
     {
+        private const string ModuleRegionName = "BottomOperationPanelRegion";
+
         private readonly IRegionManager _regionManager;
         private readonly IUnityContainer _container;
 
@@ -18,7 +20,7 @@ namespace CC.Module.BottomOperationPanel
 
         public void Initialize()
         {
-            _regionManager.RegisterViewWithRegion("BottomOperationPanelRegion",
+            _regionManager.RegisterViewWithRegion(ModuleRegionName,
                                            () => _container.Resolve<ButtonBar>());
         }
     }

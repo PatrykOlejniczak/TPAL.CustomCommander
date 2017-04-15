@@ -6,6 +6,8 @@ namespace CC.Module.FileExplorer
 {
     public class FileExplorerModule : IModule
     {
+        private const string ModuleRegionName = "";
+
         private readonly IRegionManager _regionManager;
         private readonly IUnityContainer _container;
 

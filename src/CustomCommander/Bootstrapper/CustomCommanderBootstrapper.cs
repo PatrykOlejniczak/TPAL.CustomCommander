@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using CC.Module.BottomOperationPanel;
 using CC.Module.BottomOperationPanel.ViewModels;
+using CC.Module.TopOperationPanel;
+using CC.Module.TopOperationPanel.ViewModels;
 using Microsoft.Practices.Prism.PubSubEvents;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
@@ -26,7 +28,9 @@ namespace CustomCommander.Bootstrapper
         protected override void ConfigureModuleCatalog()
         {
             ModuleCatalog moduleCatalog = (ModuleCatalog)ModuleCatalog;
+
             moduleCatalog.AddModule(typeof(BottomOperationPanelModule));
+            moduleCatalog.AddModule(typeof(TopOperationPanelModule));
         }
 
         protected override void ConfigureContainer()
@@ -34,6 +38,7 @@ namespace CustomCommander.Bootstrapper
             Container.RegisterType<EventAggregator>();
 
             Container.RegisterType<ButtonBarViewModel>();
+            Container.RegisterType<LanguagePanelViewModel>();
 
             base.ConfigureContainer();
         }

@@ -6,6 +6,8 @@ namespace CC.Module.Navigation
 {
     public class NavigationModule : IModule
     {
+        private const string ModuleRegionName = "NavigationRegion";
+
         private readonly IRegionManager _regionManager;
         private readonly IUnityContainer _container;
 
@@ -17,12 +19,7 @@ namespace CC.Module.Navigation
 
         public void Initialize()
         {
-            /*
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("pl-PL");
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("pl-PL");
-
-            _eventAggregator.GetEvent<LanguageChangedEvent>().Publish();
-            */
+            throw new System.NotImplementedException();
         }
     }
 }

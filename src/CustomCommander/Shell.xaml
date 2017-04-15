@@ -10,8 +10,8 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Background="Green">
-            <!--<ContentControl regions:RegionManager.RegionName="RequestInfoRegion" />-->
+        <Grid Grid.Row="0">
+            <ContentControl regions:RegionManager.RegionName="TopOperationPanelRegion" />
         </Grid>
         <Grid Grid.Row="1" Background="Orange">
             <!--<ContentControl regions:RegionManager.RegionName="RequestInfoRegion" />-->

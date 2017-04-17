@@ -5,7 +5,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="*" MaxWidth="100"/>
+            <ColumnDefinition Width="*" MaxWidth="80"/>
         </Grid.ColumnDefinitions>
 
         <views:LanguagePanelView Grid.Column="1"/>

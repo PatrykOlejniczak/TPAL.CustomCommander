@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using CC.Common.Infrastructure.Events;
+using CC.Common.Infrastructure.Models;
 using Prism.Events;
 
 namespace CC.Module.FileExplorer.Views
@@ -10,7 +12,8 @@ namespace CC.Module.FileExplorer.Views
     /// </summary>
     public partial class FileTreeView : UserControl
     {
-        public static readonly DependencyProperty EventAggregatorProperty = DependencyProperty.Register("Song", typeof(IEventAggregator), typeof(IEventAggregator));
+        public static readonly DependencyProperty EventAggregatorProperty 
+            = DependencyProperty.Register("EventAggregator", typeof(IEventAggregator), typeof(FileTreeView));
 
         public IEventAggregator EventAggregator
         {
@@ -25,7 +28,6 @@ namespace CC.Module.FileExplorer.Views
             }
         }
 
-
         public FileTreeView()
         {
             InitializeComponent();
@@ -37,6 +39,16 @@ namespace CC.Module.FileExplorer.Views
             ExtensionHeader.Content = Properties.Resources.ExtensionHeader;
             SizeHeader.Content = Properties.Resources.SizeHeader;
             LastModificationHeader.Content = Properties.Resources.LastModificationHeader;
+        }
+
+        private void RightItemClick(object sender, MouseButtonEventArgs e)
+        {
+            EventAggregator.GetEvent<SelectFileEvent>().Publish(((FileModel)((ListViewItem)sender).DataContext).Name);
+        }
+
+        private void MouseItemDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            EventAggregator.GetEvent<DirectoryChangedEvent>().Publish(((FileModel)((ListViewItem)sender).DataContext).Name);
         }
     }
 }

@@ -1,11 +1,14 @@
-﻿using System;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
+using System.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
-using CC.Module.FileExplorer.Models;
+using CC.Common.Infrastructure.DataProviders;
+using CC.Common.Infrastructure.Events;
+using CC.Common.Infrastructure.Models;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
+using Prism.Events;
 
 namespace CC.Module.FileExplorer.ViewModels
 {
@@ -13,10 +16,10 @@ namespace CC.Module.FileExplorer.ViewModels
     {
         public ICommand SortFilesCommand { get; }
 
-        private ObservableFiles _observableFiles;
-        public ObservableFiles Files
+        private ObservableCollection<FileModel> _observableFiles;
+        private ObservableCollection<FileModel> Files
         {
-            private get
+            get
             {
                 return _observableFiles;
             }
@@ -25,30 +28,41 @@ namespace CC.Module.FileExplorer.ViewModels
                 _observableFiles = value;
                 _filesView = new CollectionViewSource();
                 _filesView.Source = _observableFiles;
+
+                OnPropertyChanged("FilesView");
             }
         }
 
         private CollectionViewSource _filesView;
         public ListCollectionView FilesView => (ListCollectionView)_filesView.View;                      
 
-        public FileTreeViewModel()
+        public FileTreeViewModel(IEventAggregator eventAggregator, IFileProvider fileProvider, IFileInfoProvider fileInfoProvider)
         {
-            var tempFiles = Directory.GetFiles("c:\\");
-            var tempDirs = Directory.GetDirectories("c:\\");
-
-            Files = new ObservableFiles();
-
-            foreach (var t in tempFiles)
-            {
-                Files.Add(new FileModel() {Name = t.Substring(t.LastIndexOf("\\", StringComparison.Ordinal) + 1), Extension = new FileInfo(t).Extension, Size = new FileInfo(t).Length, LastModyfication = File.GetLastWriteTime(t) });
-            }
-
-            foreach (var t in tempDirs)
-            {
-                Files.Add(new FileModel() { Name = t.Substring(t.LastIndexOf("\\", StringComparison.Ordinal) + 1), Extension = "dir", LastModyfication = Directory.GetLastWriteTime(t) });
-            }
+            _eventAggregator = eventAggregator;
+            _fileProvider = fileProvider;
+            _fileInfoProvider = fileInfoProvider;
 
             SortFilesCommand = new DelegateCommand<string>(ExecuteSortFiles);
+
+            Files = new ObservableCollection<FileModel>(_fileProvider.GetFilesFromLocation("c:\\Windows"));
+
+            _eventAggregator.GetEvent<DirectoryChangedEvent>().Subscribe(ChangeDirectory);
+            _eventAggregator.GetEvent<SelectFileEvent>().Subscribe(SelectFile);
+        }
+
+        private readonly IEventAggregator _eventAggregator;
+        private readonly IFileProvider _fileProvider;
+        private readonly IFileInfoProvider _fileInfoProvider;
+
+        private void SelectFile(string fileName)
+        {
+            var file = Files.Single(f => f.Name.Equals(fileName));
+            file.IsSelected = !file.IsSelected;
+        }
+
+        private void ChangeDirectory(string path)
+        {
+            Files = new ObservableCollection<FileModel>(_fileProvider.GetFilesFromLocation("c:\\Windows\\" + path));
         }
 
         private bool _sortAscending = true;

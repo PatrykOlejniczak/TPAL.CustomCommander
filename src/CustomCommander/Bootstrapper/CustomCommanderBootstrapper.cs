@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using CC.Common.Infrastructure.DataProviders;
+using CC.Common.Infrastructure.DataProviders.Implementations;
 using CC.Module.BottomOperationPanel;
 using CC.Module.BottomOperationPanel.ViewModels;
 using CC.Module.FileExplorer;
@@ -40,6 +42,9 @@ namespace CustomCommander.Bootstrapper
         protected override void ConfigureContainer()
         {
             Container.RegisterType<IEventAggregator, EventAggregator>();
+
+            Container.RegisterType<IFileProvider, FileProvider>();
+            Container.RegisterType<IFileInfoProvider, FileInfoProvider>();
 
             Container.RegisterType<ButtonBarViewModel>();
             Container.RegisterType<LanguagePanelViewModel>();

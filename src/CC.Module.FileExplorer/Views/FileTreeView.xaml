@@ -4,9 +4,26 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
-        <ListView ItemsSource="{Binding FilesView}">
+        <ListView ItemsSource="{Binding FilesView}" SelectionMode="Single">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <EventSetter Event="PreviewMouseRightButtonDown"
+                                 Handler="RightItemClick" />
+                    <EventSetter Event="PreviewMouseDoubleClick"
+                                 Handler="MouseItemDoubleClick" />
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Image Source="{Binding Icon}" Width="25" Height="15"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Name}">
                         <GridViewColumn.Header>
                             <GridViewColumnHeader x:Name="NameHeader"
@@ -36,7 +53,7 @@
                             <GridViewColumnHeader x:Name="LastModificationHeader"
                                                   Content="Last modification"
                                                   Command="{Binding SortFilesCommand}"
-                                                  CommandParameter="LastModyfication"/>
+                                                  CommandParameter="LastModification"/>
                         </GridViewColumn.Header>
                     </GridViewColumn>
                 </GridView>

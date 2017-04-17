@@ -50,11 +50,10 @@ namespace CC.Module.FileExplorer.ViewModels
             _eventAggregator.GetEvent<SelectFileEvent>().Subscribe(SelectFile);
         }
 
-        private string _actualPath = "c:";
-
         private readonly IEventAggregator _eventAggregator;
         private readonly IFileProvider _fileProvider;
 
+        private string _actualPath = "c:";
         private void SelectFile(string fileName)
         {
             var file = Files.Single(f => f.Name.Equals(fileName));
@@ -63,7 +62,7 @@ namespace CC.Module.FileExplorer.ViewModels
 
         private void ChangeDirectory(string path)
         {
-            _actualPath = _actualPath + "\\" + path;
+            _actualPath = Path.GetFullPath(_actualPath + "\\" + path);
 
             Files = new ObservableCollection<FileModel>();
 

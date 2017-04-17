@@ -14,14 +14,7 @@
             <ContentControl regions:RegionManager.RegionName="TopOperationPanelRegion" />
         </Grid>
         <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="50" />
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <ContentControl Grid.Column="0" regions:RegionManager.RegionName="FileExplorerRegionLeft" />
-            <ContentControl Grid.Column="2" regions:RegionManager.RegionName="FileExplorerRegionRight" />
+            <ContentControl regions:RegionManager.RegionName="FileExplorerRegionLeft" />
         </Grid>
         <Grid Grid.Row="2">
             <ContentControl regions:RegionManager.RegionName="BottomOperationPanelRegion" />

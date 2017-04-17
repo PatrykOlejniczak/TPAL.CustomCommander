@@ -87,7 +87,7 @@ namespace CC.Common.Infrastructure.DataProviders.Implementations
             {
                 var returnFile = new FileModel()
                 {
-                    Icon = new BitmapImage(new Uri(@"Images\arrow_back.png", UriKind.Relative)),
+                    Icon = new BitmapImage(new Uri("pack://application:,,,/CC.Common.Infrastructure;Component/Images/arrow_back.png")),
                     Name = "..\\",
                     Extension = "",
                     LastModification = null

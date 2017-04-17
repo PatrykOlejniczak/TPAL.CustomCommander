@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCommander", "CustomCommander\CustomCommander.csproj", "{48838639-85DC-496A-8105-9B3E92723A5E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F2EE8BEE-72F3-46D5-81E3-8A079CABEE2B} = {F2EE8BEE-72F3-46D5-81E3-8A079CABEE2B}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CC.Common", "CC.Common", "{CD993D5F-9B7B-41AA-B541-9DF2DBA10FEB}"
 EndProject

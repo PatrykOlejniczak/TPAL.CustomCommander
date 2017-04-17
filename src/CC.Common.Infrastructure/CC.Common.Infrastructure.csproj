@@ -99,7 +99,9 @@
   <ItemGroup>
     <Compile Include="DataProviders\IFileProvider.cs" />
     <Compile Include="DataProviders\Implementations\FileProvider.cs" />
+    <Compile Include="Events\ActualFilePathChangedEvent.cs" />
     <Compile Include="Events\DirectoryChangedEvent.cs" />
+    <Compile Include="Events\DriverChangedEvent.cs" />
     <Compile Include="Events\LanguageChangedEvent.cs" />
     <Compile Include="Events\SelectFileEvent.cs" />
     <Compile Include="Models\FileModel.cs" />
@@ -116,9 +118,7 @@
     <Folder Include="Styles\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\arrow_back.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Images\arrow_back.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

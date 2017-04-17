@@ -97,9 +97,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataProviders\IFileInfoProvider.cs" />
     <Compile Include="DataProviders\IFileProvider.cs" />
-    <Compile Include="DataProviders\Implementations\FileInfoProvider.cs" />
     <Compile Include="DataProviders\Implementations\FileProvider.cs" />
     <Compile Include="Events\DirectoryChangedEvent.cs" />
     <Compile Include="Events\LanguageChangedEvent.cs" />
@@ -116,6 +114,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Styles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\arrow_back.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

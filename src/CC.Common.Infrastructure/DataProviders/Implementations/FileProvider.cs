@@ -12,39 +12,90 @@ namespace CC.Common.Infrastructure.DataProviders.Implementations
 {
     public class FileProvider : IFileProvider
     {
-        public List<FileModel> Files { get; private set; }
-
         public List<FileModel> GetFilesFromLocation(string path)
         {
             var tempFiles = Directory.GetFiles(path);
+
+            List<FileModel> files = new List<FileModel>();
+
+            foreach (var temp in tempFiles)
+            {
+                var icon = IconReader.GetFileIcon(
+                                        Path.GetFullPath(temp), 
+                                        IconReader.IconSize.Small, false).ToBitmap();
+                IntPtr hBitmap = icon.GetHbitmap();
+
+                ImageSource wpfBitmap = Imaging.CreateBitmapSourceFromHBitmap(
+                                                    hBitmap, IntPtr.Zero, Int32Rect.Empty,
+                                                    BitmapSizeOptions.FromEmptyOptions());
+
+                files.Add(new FileModel()
+                {
+                    Icon = wpfBitmap,
+                    Name = temp.Substring(temp.LastIndexOf("\\", StringComparison.Ordinal) + 1),
+                    Extension = new FileInfo(temp).Extension,
+                    Size = new FileInfo(temp).Length,
+                    LastModification = File.GetLastWriteTime(temp)
+                });
+            }
+
+            return files;
+        }
+
+        public List<FileModel> GetDirectoriesFromLocation(string path)
+        {
+            List<FileModel> files = new List<FileModel>();
+
+            var backResource = GetReturnPath(path);
+            if (backResource != null)
+            {
+                files.Add(backResource);
+            }
+
             var tempDirs = Directory.GetDirectories(path);
 
-            Files = new List<FileModel>();
-
-            foreach (var t in tempFiles)
+            foreach (var temp in tempDirs)
             {
-                var icon = IconReader.GetFileIcon(t, IconReader.IconSize.Small, false).ToBitmap();
+                var icon = IconReader.GetFolderIcon(
+                                        Path.GetFullPath(temp),
+                                        IconReader.IconSize.Small,
+                                        IconReader.FolderType.Closed).ToBitmap();
                 IntPtr hBitmap = icon.GetHbitmap();
-                ImageSource wpfBitmap =
-     Imaging.CreateBitmapSourceFromHBitmap(
-          hBitmap, IntPtr.Zero, Int32Rect.Empty,
-          BitmapSizeOptions.FromEmptyOptions());
-                Files.Add(new FileModel() { Icon = wpfBitmap, Name = t.Substring(t.LastIndexOf("\\", StringComparison.Ordinal) + 1), Extension = new FileInfo(t).Extension, Size = new FileInfo(t).Length, LastModification = File.GetLastWriteTime(t) });
+
+                ImageSource wpfBitmap = Imaging.CreateBitmapSourceFromHBitmap(
+                                                    hBitmap, IntPtr.Zero, Int32Rect.Empty,
+                                                    BitmapSizeOptions.FromEmptyOptions());
+
+                files.Add(new FileModel()
+                {
+                    Icon = wpfBitmap,
+                    Name = temp.Substring(temp.LastIndexOf("\\", StringComparison.Ordinal) + 1),
+                    Size = null,
+                    Extension = "dir",
+                    LastModification = Directory.GetLastWriteTime(temp)
+                });
             }
 
-            foreach (var t in tempDirs)
-            {
-                var icon = IconReader.GetFolderIcon(t, IconReader.IconSize.Small, IconReader.FolderType.Closed).ToBitmap();
-                IntPtr hBitmap = icon.GetHbitmap();
-                ImageSource wpfBitmap =
-     Imaging.CreateBitmapSourceFromHBitmap(
-          hBitmap, IntPtr.Zero, Int32Rect.Empty,
-          BitmapSizeOptions.FromEmptyOptions());
+            return files;
+        }
 
-                Files.Add(new FileModel() { Icon = wpfBitmap, Name = t.Substring(t.LastIndexOf("\\", StringComparison.Ordinal) + 1), Extension = "dir", LastModification = Directory.GetLastWriteTime(t) });
+        private FileModel GetReturnPath(string path)
+        {
+            DirectoryInfo rootDirectory = new DirectoryInfo(path);
+
+            if (rootDirectory.Parent != null)
+            {
+                var returnFile = new FileModel()
+                {
+                    Icon = new BitmapImage(new Uri(@"Images\arrow_back.png", UriKind.Relative)),
+                    Name = "..\\",
+                    Extension = "",
+                    LastModification = null
+                };
+                return returnFile;
             }
 
-            return Files;
+            return null;
         }
     }
 }

@@ -9,8 +9,8 @@ namespace CC.Common.Infrastructure.Models
         public string Path { get; set; }
         public string Name { get; set; }
         public string Extension { get; set; }
-        public long Size { get; set; }
-        public DateTime LastModification { get; set; }
+        public long? Size { get; set; }
+        public DateTime? LastModification { get; set; }
 
         public bool IsSelected { get; set; }
     }

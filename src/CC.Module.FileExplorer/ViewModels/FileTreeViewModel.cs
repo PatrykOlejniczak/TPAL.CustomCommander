@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -36,23 +37,23 @@ namespace CC.Module.FileExplorer.ViewModels
         private CollectionViewSource _filesView;
         public ListCollectionView FilesView => (ListCollectionView)_filesView.View;                      
 
-        public FileTreeViewModel(IEventAggregator eventAggregator, IFileProvider fileProvider, IFileInfoProvider fileInfoProvider)
+        public FileTreeViewModel(IEventAggregator eventAggregator, IFileProvider fileProvider)
         {
             _eventAggregator = eventAggregator;
             _fileProvider = fileProvider;
-            _fileInfoProvider = fileInfoProvider;
 
             SortFilesCommand = new DelegateCommand<string>(ExecuteSortFiles);
 
-            Files = new ObservableCollection<FileModel>(_fileProvider.GetFilesFromLocation("c:\\Windows"));
+            ChangeDirectory(string.Empty);            
 
             _eventAggregator.GetEvent<DirectoryChangedEvent>().Subscribe(ChangeDirectory);
             _eventAggregator.GetEvent<SelectFileEvent>().Subscribe(SelectFile);
         }
 
+        private string _actualPath = "c:";
+
         private readonly IEventAggregator _eventAggregator;
         private readonly IFileProvider _fileProvider;
-        private readonly IFileInfoProvider _fileInfoProvider;
 
         private void SelectFile(string fileName)
         {
@@ -62,7 +63,12 @@ namespace CC.Module.FileExplorer.ViewModels
 
         private void ChangeDirectory(string path)
         {
-            Files = new ObservableCollection<FileModel>(_fileProvider.GetFilesFromLocation("c:\\Windows\\" + path));
+            _actualPath = _actualPath + "\\" + path;
+
+            Files = new ObservableCollection<FileModel>();
+
+            Files.AddRange(_fileProvider.GetFilesFromLocation(Path.GetFullPath(_actualPath)));
+            Files.AddRange(_fileProvider.GetDirectoriesFromLocation(Path.GetFullPath(_actualPath)));
         }
 
         private bool _sortAscending = true;

@@ -2,7 +2,14 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"
+             xmlns:converters="clr-namespace:CC.Module.FileExplorer.Converters"
              prism:ViewModelLocator.AutoWireViewModel="True">
+
+    <UserControl.Resources>
+        <converters:SizeToBytesConverter x:Key="SizeToBytesConverter"/>
+        <converters:DateToCultureDateConverter x:Key="DateToCultureDateConverter"/>
+    </UserControl.Resources>
+
     <Grid>
         <ListView ItemsSource="{Binding FilesView}" SelectionMode="Single">
             <ListView.ItemContainerStyle>
@@ -40,7 +47,13 @@
                                                   CommandParameter="Extension"/>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Size}">
+                    <GridViewColumn>
+                        <GridViewColumn.DisplayMemberBinding>
+                            <MultiBinding Converter="{StaticResource SizeToBytesConverter}">
+                                <Binding Path="Size"/>
+                                <Binding Path="Extension"/>
+                            </MultiBinding>
+                        </GridViewColumn.DisplayMemberBinding>
                         <GridViewColumn.Header>
                             <GridViewColumnHeader x:Name="SizeHeader"
                                                   Content="Size"
@@ -48,7 +61,7 @@
                                                   CommandParameter="Size"/>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding LastModyfication}">
+                    <GridViewColumn DisplayMemberBinding="{Binding LastModification, Converter={StaticResource DateToCultureDateConverter}}">
                         <GridViewColumn.Header>
                             <GridViewColumnHeader x:Name="LastModificationHeader"
                                                   Content="Last modification"

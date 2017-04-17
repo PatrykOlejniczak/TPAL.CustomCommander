@@ -48,6 +48,7 @@ namespace CC.Module.FileExplorer.ViewModels
 
             _eventAggregator.GetEvent<DirectoryChangedEvent>().Subscribe(ChangeDirectory);
             _eventAggregator.GetEvent<SelectFileEvent>().Subscribe(SelectFile);
+            _eventAggregator.GetEvent<LanguageChangedEvent>().Subscribe(() => ChangeDirectory(""));
         }
 
         private readonly IEventAggregator _eventAggregator;

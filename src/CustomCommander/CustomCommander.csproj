@@ -153,6 +153,10 @@
       <Project>{7132416a-949f-4d3e-82de-a28053a9d235}</Project>
       <Name>CC.Common.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CC.Common.Popup\CC.Common.Popup.csproj">
+      <Project>{f2ee8bee-72f3-46d5-81e3-8a079cabee2b}</Project>
+      <Name>CC.Common.Popup</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CC.Module.BottomOperationPanel\CC.Module.BottomOperationPanel.csproj">
       <Project>{e95641af-acd1-4f6c-8a26-88ba2752fb0d}</Project>
       <Name>CC.Module.BottomOperationPanel</Name>

@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="CC.Common.Popup.Views.MoveFileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"             
+             prism:ViewModelLocator.AutoWireViewModel="True"             
+             Width="400">
+
+    <StackPanel>
+        <StackPanel Margin="10">
+            <TextBlock />
+            <TextBox />
+        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button AutomationProperties.AutomationId="MoveFileAcceptButton" Grid.Column="0" Margin="10, 0, 10, 10" Command="{Binding AcceptCommand}">Accept</Button>
+            <Button AutomationProperties.AutomationId="MoveFileCancelButton" Grid.Column="1" Margin="10, 0, 10, 10" Command="{Binding CancelCommand}">Cancel</Button>
+        </Grid>
+    </StackPanel>
+
+</UserControl>
+

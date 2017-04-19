@@ -1,18 +1,25 @@
 ﻿using System;
 using System.Windows.Input;
+using CC.Common.Popup.Notifications;
 using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Events;
+using Prism.Interactivity.InteractionRequest;
 
 namespace CC.Module.BottomOperationPanel.ViewModels
 {
     public class ButtonBarViewModel : BindableBase
     {
+        public InteractionRequest<CopyFileNotification> CopyFileNotification { get; set; }
         public ICommand CopyFileCommand { get; }
+        public InteractionRequest<MoveFileNotification> MoveFileNotification { get; set; }
         public ICommand MoveFileCommand { get; }
+        public InteractionRequest<NewFileNotification> NewFileNotification { get; set; }
         public ICommand NewFolderCommand { get; }
+        public InteractionRequest<DeleteFileNotification> DeleteFileNotification { get; set; }
         public ICommand DeleteFileCommand { get; }
+
         public ICommand ExitProgramCommand { get; }
 
         private readonly IUnityContainer _unityContainer;
@@ -23,32 +30,51 @@ namespace CC.Module.BottomOperationPanel.ViewModels
             _unityContainer = container;
             _eventAggregator = eventAggregator;
 
+            CopyFileNotification = new InteractionRequest<CopyFileNotification>();
             CopyFileCommand = new DelegateCommand(ExecuteCopyFileCommand);
-            MoveFileCommand = new DelegateCommand(ExecuteMoveFileCommand);
-            NewFolderCommand = new DelegateCommand(ExecuteNewFolderCommand);
-            DeleteFileCommand = new DelegateCommand(ExecuteDeleteFileCommand);
-            ExitProgramCommand = new DelegateCommand(ExecuteExitProgramCommand);
 
+            MoveFileNotification = new InteractionRequest<MoveFileNotification>();
+            MoveFileCommand = new DelegateCommand(ExecuteMoveFileCommand);
+
+            NewFileNotification = new InteractionRequest<NewFileNotification>();
+            NewFolderCommand = new DelegateCommand(ExecuteNewFolderCommand);
+
+            DeleteFileNotification = new InteractionRequest<DeleteFileNotification>();
+            DeleteFileCommand = new DelegateCommand(ExecuteDeleteFileCommand);
+
+            ExitProgramCommand = new DelegateCommand(ExecuteExitProgramCommand);
         }
 
         private void ExecuteCopyFileCommand()
         {
-            throw new NotImplementedException();
+            CopyFileNotification.Raise(new CopyFileNotification { Title = "Custom Notification" }, r =>
+            {
+
+            });
         }
 
         private void ExecuteMoveFileCommand()
         {
-            throw new NotImplementedException();
+            MoveFileNotification.Raise(new MoveFileNotification { Title = "Custom Notification" }, r =>
+            {
+
+            });
         }
 
         private void ExecuteNewFolderCommand()
         {
-            throw new NotImplementedException();
+            NewFileNotification.Raise(new NewFileNotification { Title = "Custom Notification" }, r =>
+            {
+
+            });
         }
 
         private void ExecuteDeleteFileCommand()
         {
-            throw new NotImplementedException();
+            DeleteFileNotification.Raise(new DeleteFileNotification { Title = "Custom Notification" }, r =>
+            {
+
+            });
         }
 
         private void ExecuteExitProgramCommand()

@@ -38,7 +38,7 @@ namespace CC.Module.FileExplorer.Views
             NameHeader.Content = Properties.Resources.NameHeader;
             ExtensionHeader.Content = Properties.Resources.ExtensionHeader;
             SizeHeader.Content = Properties.Resources.SizeHeader;
-            LastModificationHeader.Content = Properties.Resources.LastModificationHeader;
+            CreatedDateHeader.Content = Properties.Resources.CreatedDateHeader;
         }
 
         private void RightItemClick(object sender, MouseButtonEventArgs e)

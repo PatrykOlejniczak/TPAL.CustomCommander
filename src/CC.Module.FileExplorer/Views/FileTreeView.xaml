@@ -61,12 +61,12 @@
                                                   CommandParameter="Size"/>
                         </GridViewColumn.Header>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding LastModification, Converter={StaticResource DateToCultureDateConverter}}">
+                    <GridViewColumn DisplayMemberBinding="{Binding CreatedDate, Converter={StaticResource DateToCultureDateConverter}}">
                         <GridViewColumn.Header>
-                            <GridViewColumnHeader x:Name="LastModificationHeader"
-                                                  Content="Last modification"
+                            <GridViewColumnHeader x:Name="CreatedDateHeader"
+                                                  Content="Created date"
                                                   Command="{Binding SortFilesCommand}"
-                                                  CommandParameter="LastModification"/>
+                                                  CommandParameter="CreatedDate"/>
                         </GridViewColumn.Header>
                     </GridViewColumn>
                 </GridView>

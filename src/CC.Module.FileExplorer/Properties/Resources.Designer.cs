@@ -61,20 +61,20 @@ namespace CC.Module.FileExplorer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Created date.
+        /// </summary>
+        public static string CreatedDateHeader {
+            get {
+                return ResourceManager.GetString("CreatedDateHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Extension.
         /// </summary>
         public static string ExtensionHeader {
             get {
                 return ResourceManager.GetString("ExtensionHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Last modification.
-        /// </summary>
-        public static string LastModificationHeader {
-            get {
-                return ResourceManager.GetString("LastModificationHeader", resourceCulture);
             }
         }
         

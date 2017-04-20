@@ -35,7 +35,7 @@ namespace CC.Common.Infrastructure.DataProviders.Implementations
                     Name = temp.Substring(temp.LastIndexOf("\\", StringComparison.Ordinal) + 1),
                     Extension = new FileInfo(temp).Extension,
                     Size = new FileInfo(temp).Length,
-                    LastModification = File.GetLastWriteTime(temp)
+                    CreatedDate = File.GetCreationTime(temp)
                 });
             }
 
@@ -72,7 +72,7 @@ namespace CC.Common.Infrastructure.DataProviders.Implementations
                     Name = temp.Substring(temp.LastIndexOf("\\", StringComparison.Ordinal) + 1),
                     Size = null,
                     Extension = "dir",
-                    LastModification = Directory.GetLastWriteTime(temp)
+                    CreatedDate = Directory.GetLastWriteTime(temp)
                 });
             }
 
@@ -90,7 +90,7 @@ namespace CC.Common.Infrastructure.DataProviders.Implementations
                     Icon = new BitmapImage(new Uri("pack://application:,,,/CC.Common.Infrastructure;Component/Images/arrow_back.png")),
                     Name = "..\\",
                     Extension = "",
-                    LastModification = null
+                    CreatedDate = null
                 };
                 return returnFile;
             }

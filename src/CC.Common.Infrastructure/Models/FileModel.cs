@@ -10,7 +10,7 @@ namespace CC.Common.Infrastructure.Models
         public string Name { get; set; }
         public string Extension { get; set; }
         public long? Size { get; set; }
-        public DateTime? LastModification { get; set; }
+        public DateTime? CreatedDate { get; set; }
 
         public bool IsSelected { get; set; }
     }

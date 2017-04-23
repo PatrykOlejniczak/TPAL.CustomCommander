@@ -71,6 +71,8 @@ namespace CC.Common.Popup.ViewModels
             {
                 Directory.CreateDirectory(newDirectoryPath);
 
+                _eventAggregator.GetEvent<FileListUpdatedEvent>().Publish();
+
                 _notification.Confirmed = true;
                 FinishInteraction?.Invoke();
             }

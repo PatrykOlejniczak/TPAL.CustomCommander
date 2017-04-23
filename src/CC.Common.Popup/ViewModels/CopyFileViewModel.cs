@@ -86,6 +86,8 @@ namespace CC.Common.Popup.ViewModels
                     }
                 }
 
+                _eventAggregator.GetEvent<FileListUpdatedEvent>().Publish();
+
                 _notification.Confirmed = true;
                 FinishInteraction?.Invoke();
             }

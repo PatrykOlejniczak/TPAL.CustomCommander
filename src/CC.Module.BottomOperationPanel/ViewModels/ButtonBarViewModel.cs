@@ -48,34 +48,22 @@ namespace CC.Module.BottomOperationPanel.ViewModels
 
         private void ExecuteCopyFileCommand()
         {
-            CopyFileNotification.Raise(new CopyFileNotification { Title = "Custom Notification" }, r =>
-            {
-
-            });
+            CopyFileNotification.Raise(new CopyFileNotification { Title = "Copy file" }, r => { });
         }
 
         private void ExecuteMoveFileCommand()
         {
-            MoveFileNotification.Raise(new MoveFileNotification { Title = "Custom Notification" }, r =>
-            {
-
-            });
+            MoveFileNotification.Raise(new MoveFileNotification { Title = "Move file" }, r => { });
         }
 
         private void ExecuteNewFolderCommand()
         {
-            NewFileNotification.Raise(new NewFileNotification { Title = "Custom Notification" }, r =>
-            {
-
-            });
+            NewFileNotification.Raise(new NewFileNotification { Title = "Create folder" }, r => { });
         }
 
         private void ExecuteDeleteFileCommand()
         {
-            DeleteFileNotification.Raise(new DeleteFileNotification { Title = "Custom Notification" }, r =>
-            {
-
-            });
+            DeleteFileNotification.Raise(new DeleteFileNotification { Title = "Delete file" }, r => { });
         }
 
         private void ExecuteExitProgramCommand()

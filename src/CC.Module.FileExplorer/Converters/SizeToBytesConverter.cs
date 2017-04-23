@@ -11,7 +11,7 @@ namespace CC.Module.FileExplorer.Converters
             long? size = (long?)values[0];
             string extension = (string)values[1];
 
-            if (extension.Equals("dir"))
+            if (!string.IsNullOrEmpty(extension) && extension.Equals("dir"))
             {
                 return "";
             }

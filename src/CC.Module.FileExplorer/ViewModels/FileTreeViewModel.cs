@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Windows.Input;
 using CC.Common.Infrastructure.DataProviders;
 using CC.Common.Infrastructure.Events;
 using CC.Common.Infrastructure.Models;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Mvvm;
 using Prism.Events;
@@ -15,10 +17,12 @@ namespace CC.Module.FileExplorer.ViewModels
 {
     public class FileTreeViewModel : BindableBase
     {
+        private string _actualPath = "c:";
+
         public ICommand SortFilesCommand { get; }
 
         private ObservableCollection<FileModel> _observableFiles;
-        private ObservableCollection<FileModel> Files
+        public ObservableCollection<FileModel> Files
         {
             get
             {
@@ -29,13 +33,16 @@ namespace CC.Module.FileExplorer.ViewModels
                 _observableFiles = value;
                 _filesView = new CollectionViewSource();
                 _filesView.Source = _observableFiles;
-
+                
                 OnPropertyChanged("FilesView");
             }
         }
 
         private CollectionViewSource _filesView;
-        public ListCollectionView FilesView => (ListCollectionView)_filesView.View;                      
+        public ListCollectionView FilesView => (ListCollectionView)_filesView.View;
+
+        private readonly IEventAggregator _eventAggregator;
+        private readonly IFileProvider _fileProvider;
 
         public FileTreeViewModel(IEventAggregator eventAggregator, IFileProvider fileProvider)
         {
@@ -46,29 +53,42 @@ namespace CC.Module.FileExplorer.ViewModels
 
             ChangeDirectory(string.Empty);            
 
-            _eventAggregator.GetEvent<DirectoryChangedEvent>().Subscribe(ChangeDirectory);
-            _eventAggregator.GetEvent<SelectFileEvent>().Subscribe(SelectFile);
-            _eventAggregator.GetEvent<LanguageChangedEvent>().Subscribe(() => ChangeDirectory(""));
+            _eventAggregator.GetEvent<LanguageChangedEvent>().Subscribe(() => ChangeSelectFile(""));
         }
 
-        private readonly IEventAggregator _eventAggregator;
-        private readonly IFileProvider _fileProvider;
-
-        private string _actualPath = "c:";
-        private void SelectFile(string fileName)
+        public void ActivateControl()
         {
-            var file = Files.Single(f => f.Name.Equals(fileName));
-            file.IsSelected = !file.IsSelected;
+            _eventAggregator.GetEvent<FilePathChangedEvent>().Publish(_actualPath);
         }
 
-        private void ChangeDirectory(string path)
+        public void ChangeSelectFile(string fileName)
         {
-            _actualPath = Path.GetFullPath(_actualPath + "\\" + path);
+            Files.Where(f => f.Name.Equals(fileName)).ForEach(f => f.IsSelected = !f.IsSelected);
+            Files = Files;
+
+            _eventAggregator.GetEvent<SelectFileChangedEvent>()
+                            .Publish(Files.ToList().FindAll(f => f.IsSelected));
+        }
+
+        public void ChangeDirectory(string path)
+        {
+            var desitinationPath = Path.GetFullPath(_actualPath + "\\" + path);
 
             Files = new ObservableCollection<FileModel>();
 
-            Files.AddRange(_fileProvider.GetFilesFromLocation(Path.GetFullPath(_actualPath)));
-            Files.AddRange(_fileProvider.GetDirectoriesFromLocation(Path.GetFullPath(_actualPath)));
+            try
+            {
+                Files.AddRange(_fileProvider.GetFilesFromLocation(Path.GetFullPath(desitinationPath)));
+                Files.AddRange(_fileProvider.GetDirectoriesFromLocation(Path.GetFullPath(desitinationPath)));
+
+                _actualPath = desitinationPath;
+            }
+            catch (UnauthorizedAccessException exception)
+            {
+                ChangeDirectory(_actualPath);
+            }
+            _eventAggregator.GetEvent<DirectoryChangedEvent>()
+                .Publish(_actualPath);
         }
 
         private bool _sortAscending = true;

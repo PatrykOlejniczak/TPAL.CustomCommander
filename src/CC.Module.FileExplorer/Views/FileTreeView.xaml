@@ -8,6 +8,7 @@
     <UserControl.Resources>
         <converters:SizeToBytesConverter x:Key="SizeToBytesConverter"/>
         <converters:DateToCultureDateConverter x:Key="DateToCultureDateConverter"/>
+        <converters:IsSelectedToRedForeGround x:Key="IsSelectedToRedForeGround"/>
     </UserControl.Resources>
 
     <Grid>
@@ -18,6 +19,8 @@
                                  Handler="RightItemClick" />
                     <EventSetter Event="PreviewMouseDoubleClick"
                                  Handler="MouseItemDoubleClick" />
+                    <EventSetter Event="PreviewMouseLeftButtonDown"
+                                 Handler="LeftItemClick" />
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.View>
@@ -31,43 +34,67 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Name}">
+                    <GridViewColumn>
                         <GridViewColumn.Header>
                             <GridViewColumnHeader x:Name="NameHeader"
                                                   Content="Name"
                                                   Command="{Binding SortFilesCommand}"
                                                   CommandParameter="Name"/>
                         </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" 
+                                           Foreground="{Binding IsSelected, Converter={StaticResource IsSelectedToRedForeGround}}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Extension}">
+                    <GridViewColumn>
                         <GridViewColumn.Header>
                             <GridViewColumnHeader x:Name="ExtensionHeader"
                                                   Content="Extension"
                                                   Command="{Binding SortFilesCommand}"
                                                   CommandParameter="Extension"/>
                         </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Extension}" 
+                                           Foreground="{Binding IsSelected, Converter={StaticResource IsSelectedToRedForeGround}}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn>
-                        <GridViewColumn.DisplayMemberBinding>
-                            <MultiBinding Converter="{StaticResource SizeToBytesConverter}">
-                                <Binding Path="Size"/>
-                                <Binding Path="Extension"/>
-                            </MultiBinding>
-                        </GridViewColumn.DisplayMemberBinding>
                         <GridViewColumn.Header>
                             <GridViewColumnHeader x:Name="SizeHeader"
                                                   Content="Size"
                                                   Command="{Binding SortFilesCommand}"
                                                   CommandParameter="Size"/>
                         </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Foreground="{Binding IsSelected, Converter={StaticResource IsSelectedToRedForeGround}}">
+                                    <TextBlock.Text>
+                                        <MultiBinding Converter="{StaticResource SizeToBytesConverter}">
+                                            <Binding Path="Size"/>
+                                            <Binding Path="Extension"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding CreatedDate, Converter={StaticResource DateToCultureDateConverter}}">
+                    <GridViewColumn>
                         <GridViewColumn.Header>
                             <GridViewColumnHeader x:Name="CreatedDateHeader"
                                                   Content="Created date"
                                                   Command="{Binding SortFilesCommand}"
                                                   CommandParameter="CreatedDate"/>
                         </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CreatedDate, Converter={StaticResource DateToCultureDateConverter}}" 
+                                           Foreground="{Binding IsSelected, Converter={StaticResource IsSelectedToRedForeGround}}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                 </GridView>
             </ListView.View>

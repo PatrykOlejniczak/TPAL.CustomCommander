@@ -2,6 +2,6 @@
 
 namespace CC.Common.Infrastructure.Events
 {
-    public class SelectFileEvent : PubSubEvent<string>
+    public class FilePathChangedEvent : PubSubEvent<string>
     { }
 }

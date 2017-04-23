@@ -99,11 +99,11 @@
   <ItemGroup>
     <Compile Include="DataProviders\IFileProvider.cs" />
     <Compile Include="DataProviders\Implementations\FileProvider.cs" />
-    <Compile Include="Events\ActualFilePathChangedEvent.cs" />
     <Compile Include="Events\DirectoryChangedEvent.cs" />
+    <Compile Include="Events\FilePathChangedEvent.cs" />
     <Compile Include="Events\DriverChangedEvent.cs" />
     <Compile Include="Events\LanguageChangedEvent.cs" />
-    <Compile Include="Events\SelectFileEvent.cs" />
+    <Compile Include="Events\SelectFileChangedEvent.cs" />
     <Compile Include="Models\FileModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShellApi\IconReader.cs" />

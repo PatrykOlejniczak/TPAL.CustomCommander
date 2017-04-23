@@ -1,6 +1,9 @@
 ﻿using System;
+using System.IO;
+using CC.Common.Infrastructure.Events;
 using CC.Common.Popup.Notifications;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
 
@@ -8,22 +11,50 @@ namespace CC.Common.Popup.ViewModels
 {
     public class NewFileViewModel : BindableBase, IInteractionRequestAware
     {
-        private NewFileNotification _notification;
+        public Action FinishInteraction { get; set; }
 
+        public DelegateCommand AcceptCommand { get; private set; }
+        public DelegateCommand CancelCommand { get; private set; }
+
+        private readonly IEventAggregator _eventAggregator;
+
+        private NewFileNotification _notification;
         public INotification Notification
         {
             get { return _notification; }
             set { SetProperty(ref _notification, (NewFileNotification)value); }
         }
 
-        public DelegateCommand SelectItemCommand { get; private set; }
-
-        public DelegateCommand CancelCommand { get; private set; }
-
-        public NewFileViewModel()
+        private string _directoryPath;
+        public string DirectoryPath
         {
-            SelectItemCommand = new DelegateCommand(AcceptSelectedItem);
+            get { return _directoryPath; }
+            set
+            {
+                SetProperty(ref _directoryPath, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        private string _directoryName;
+        public string DirectoryName
+        {
+            get { return _directoryName; }
+            set
+            {
+                SetProperty(ref _directoryName, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        public NewFileViewModel(IEventAggregator eventAggregator)
+        {
+            _eventAggregator = eventAggregator;
+
+            AcceptCommand = new DelegateCommand(AcceptInteraction);
             CancelCommand = new DelegateCommand(CancelInteraction);
+
+            _eventAggregator.GetEvent<DirectoryChangedEvent>().Subscribe(directory => DirectoryPath = directory);
         }
 
         private void CancelInteraction()
@@ -32,12 +63,18 @@ namespace CC.Common.Popup.ViewModels
             FinishInteraction?.Invoke();
         }
 
-        private void AcceptSelectedItem()
+        private void AcceptInteraction()
         {
-            _notification.Confirmed = true;
-            FinishInteraction?.Invoke();
-        }
+            var newDirectoryPath = DirectoryPath + "\\" + DirectoryName;
 
-        public Action FinishInteraction { get; set; }
+            if (!Directory.Exists(newDirectoryPath))
+            {
+                Directory.CreateDirectory(newDirectoryPath);
+
+                _notification.Confirmed = true;
+                FinishInteraction?.Invoke();
+            }
+            //TODO directory exists pop-up error
+        }
     }
 }

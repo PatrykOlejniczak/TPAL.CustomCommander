@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using CC.Common.Infrastructure.Events;
 using CC.Common.Infrastructure.Models;
+using CC.Module.FileExplorer.ViewModels;
 using Prism.Events;
 
 namespace CC.Module.FileExplorer.Views
@@ -43,12 +44,17 @@ namespace CC.Module.FileExplorer.Views
 
         private void RightItemClick(object sender, MouseButtonEventArgs e)
         {
-            EventAggregator.GetEvent<SelectFileEvent>().Publish(((FileModel)((ListViewItem)sender).DataContext).Name);
+            ((FileTreeViewModel)DataContext).ChangeSelectFile(((FileModel)((ListViewItem)sender).DataContext).Name);
         }
 
         private void MouseItemDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            EventAggregator.GetEvent<DirectoryChangedEvent>().Publish(((FileModel)((ListViewItem)sender).DataContext).Name);
+            ((FileTreeViewModel)DataContext).ChangeDirectory(((FileModel)((ListViewItem)sender).DataContext).Name);
+        }
+
+        private void LeftItemClick(object sender, MouseButtonEventArgs e)
+        {
+            ((FileTreeViewModel) DataContext).ActivateControl();
         }
     }
 }

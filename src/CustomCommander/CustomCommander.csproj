@@ -165,10 +165,6 @@
       <Project>{b11b8370-d64d-40cb-b5e9-e9c14e219aaf}</Project>
       <Name>CC.Module.FileExplorer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CC.Module.Navigation\CC.Module.Navigation.csproj">
-      <Project>{764c8bd5-91c2-4b89-ae57-4de221c8296d}</Project>
-      <Name>CC.Module.Navigation</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CC.Module.TopOperationPanel\CC.Module.TopOperationPanel.csproj">
       <Project>{44cbcd52-e6d0-4582-bb0f-9cb7b2d793c1}</Project>
       <Name>CC.Module.TopOperationPanel</Name>

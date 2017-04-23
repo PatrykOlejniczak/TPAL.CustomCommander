@@ -3,6 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:views="clr-namespace:CC.Module.FileExplorer.Views">
     <Grid>
-        <views:FileTreeView x:Name="FileTreeView" />    
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <views:FileTreeView Grid.Column="0" x:Name="FileTreeViewLeft" />
+
+        <views:FileTreeView Grid.Column="1" x:Name="FileTreeViewRight" />
     </Grid>
 </UserControl>

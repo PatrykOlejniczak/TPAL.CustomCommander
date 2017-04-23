@@ -13,7 +13,8 @@ namespace CC.Module.FileExplorer.Views
         {
             InitializeComponent();
 
-            FileTreeView.EventAggregator = eventAggregator;
+            FileTreeViewLeft.EventAggregator = eventAggregator;
+            FileTreeViewRight.EventAggregator = eventAggregator;
         }
     }
 }

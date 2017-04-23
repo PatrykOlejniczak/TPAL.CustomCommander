@@ -99,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\DateToCultureDateConverter.cs" />
+    <Compile Include="Converters\IsSelectedToRedForeGround.cs" />
     <Compile Include="Converters\SizeToBytesConverter.cs" />
     <Compile Include="FileExplorerModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -89,7 +89,8 @@ namespace CC.Common.Infrastructure.DataProviders.Implementations
                 {
                     Icon = new BitmapImage(new Uri("pack://application:,,,/CC.Common.Infrastructure;Component/Images/arrow_back.png")),
                     Name = "..\\",
-                    Extension = "",
+                    Extension = null,
+                    Size = null,
                     CreatedDate = null
                 };
                 return returnFile;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using CC.Common.Popup.Notifications;
 using Microsoft.Practices.Prism.Mvvm;
@@ -79,7 +80,7 @@ namespace CC.Module.BottomOperationPanel.ViewModels
 
         private void ExecuteExitProgramCommand()
         {
-            throw new NotImplementedException();
+            Application.Current.Shutdown();
         }
     }
 }

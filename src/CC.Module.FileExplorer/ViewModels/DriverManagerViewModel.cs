@@ -15,6 +15,7 @@ namespace CC.Module.FileExplorer.ViewModels
             var drivers = DriveInfo.GetDrives();
 
             _driverListView = new CollectionView(drivers.Select(d => d.Name).ToList());
+            SelectedDriver = "C:\\";
         }
 
         private readonly CollectionView _driverListView;

@@ -59,7 +59,7 @@ namespace CC.Module.FileExplorer.ViewModels
 
         public void ActivateControl()
         {
-            _eventAggregator.GetEvent<FilePathChangedEvent>().Publish(_actualPath);
+            _eventAggregator.GetEvent<DirectoryChangedEvent>().Publish(_actualPath);
         }
 
         public void ChangeSelectFile(string fileName)
@@ -88,8 +88,8 @@ namespace CC.Module.FileExplorer.ViewModels
             {
                 ChangeDirectory(_actualPath);
             }
-            _eventAggregator.GetEvent<DirectoryChangedEvent>()
-                .Publish(_actualPath);
+
+            _eventAggregator.GetEvent<DirectoryChangedEvent>().Publish(_actualPath);
         }
 
         private bool _sortAscending = true;

@@ -55,12 +55,16 @@ namespace CC.Common.Popup.ViewModels
         private readonly IEventAggregator _eventAggregator;
         private BackgroundWorker _backgroundWorker;
 
+        public InteractionRequest<INotification> NotificationRequest { get; }
+
         public CopyFileViewModel(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
 
             AcceptCommand = new DelegateCommand(AcceptInteraction);
             CancelCommand = new DelegateCommand(CancelInteraction);
+
+            NotificationRequest = new InteractionRequest<INotification>();
 
             _backgroundWorker = new BackgroundWorker();
             _backgroundWorker.DoWork += new DoWorkEventHandler(BackgroundWorkerCopy);
@@ -96,10 +100,15 @@ namespace CC.Common.Popup.ViewModels
 
         private void BackgroundWorkerComplete(object sender, RunWorkerCompletedEventArgs e)
         {
-            _eventAggregator.GetEvent<FileListUpdatedEvent>().Publish();
+            if (e.Error != null)
+                NotificationRequest.Raise(new Notification {Content = e.Error.Message, Title = "Error"});
+            else
+            {
+                _eventAggregator.GetEvent<FileListUpdatedEvent>().Publish();
 
-            _notification.Confirmed = true;
-            FinishInteraction?.Invoke();
+                _notification.Confirmed = true;
+                FinishInteraction?.Invoke();
+            }
         }
 
         private void BackgroundWorkerCopy(object sender, DoWorkEventArgs e)

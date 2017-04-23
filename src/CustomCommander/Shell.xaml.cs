@@ -1,4 +1,10 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Interop;
+using CC.Common.Infrastructure.Events;
+using CC.Common.Infrastructure.ShellApi;
+using Prism.Events;
+
 
 namespace CustomCommander
 {

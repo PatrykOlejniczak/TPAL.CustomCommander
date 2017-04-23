@@ -137,7 +137,11 @@ namespace CC.Module.FileExplorer.ViewModels
             catch (UnauthorizedAccessException exception)
             {
                 NotificationRequest.Raise(new Notification { Content = exception.Message, Title = "Error" });
-                ChangeDirectory(_actualPath);
+                ChangeDirectory("");
+            }
+            catch (Exception exception)
+            {
+                NotificationRequest.Raise(new Notification { Content = exception.Message, Title = "Error" });
             }
             _eventAggregator.GetEvent<DirectoryChangedEvent>()
                 .Publish(_actualPath);

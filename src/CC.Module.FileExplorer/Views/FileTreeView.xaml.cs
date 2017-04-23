@@ -1,8 +1,11 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interop;
 using CC.Common.Infrastructure.Events;
 using CC.Common.Infrastructure.Models;
+using CC.Common.Infrastructure.ShellApi;
 using CC.Module.FileExplorer.ViewModels;
 using Prism.Events;
 
@@ -34,6 +37,15 @@ namespace CC.Module.FileExplorer.Views
             InitializeComponent();
 
             ((DriverManagerViewModel)DriverManagerView.DataContext).DriverChangedEvent += ((FileTreeViewModel)DataContext).ChangeDriver;
+
+            Window parentWindow = Application.Current.MainWindow;
+
+            HwndSource source = HwndSource.FromHwnd(new WindowInteropHelper(parentWindow).Handle);
+            if (source != null)
+            {
+                source.AddHook(HwndHandler);
+                UsbNotification.RegisterUsbDeviceNotification(source.Handle);
+            }
         }
 
         private void UpdateTranslations()
@@ -57,6 +69,25 @@ namespace CC.Module.FileExplorer.Views
         private void LeftItemClick(object sender, MouseButtonEventArgs e)
         {
             ((FileTreeViewModel) DataContext).ActivateControl();
+        }
+
+        private IntPtr HwndHandler(IntPtr hwnd, int msg, IntPtr wparam, IntPtr lparam, ref bool handled)
+        {
+            if (msg == UsbNotification.WmDevicechange)
+            {
+                switch ((int)wparam)
+                {
+                    case UsbNotification.DbtDeviceremovecomplete:
+                        EventAggregator.GetEvent<DriverListChangedEvent>().Publish();
+                        break;
+                    case UsbNotification.DbtDevicearrival:
+                        EventAggregator.GetEvent<DriverListChangedEvent>().Publish();
+                        break;
+                }
+            }
+
+            handled = false;
+            return IntPtr.Zero;
         }
     }
 }

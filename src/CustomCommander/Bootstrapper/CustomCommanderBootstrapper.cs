@@ -54,7 +54,7 @@ namespace CustomCommander.Bootstrapper
             Container.RegisterType<ButtonBarViewModel>();
             Container.RegisterType<LanguagePanelViewModel>();
             Container.RegisterType<FileTreeViewModel>(new PerResolveLifetimeManager());
-            Container.RegisterType<DriverManagerView>(new PerResolveLifetimeManager());
+            Container.RegisterType<DriverManagerViewModel>(new PerResolveLifetimeManager());
 
             base.ConfigureContainer();
         }

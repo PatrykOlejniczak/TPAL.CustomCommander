@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Data;
+using CC.Common.Infrastructure.Events;
+using Prism.Events;
 using Prism.Mvvm;
 
 namespace CC.Module.FileExplorer.ViewModels
@@ -10,18 +13,33 @@ namespace CC.Module.FileExplorer.ViewModels
     {
         public event Action<string> DriverChangedEvent;
 
-        public DriverManagerViewModel()
+        private readonly IEventAggregator _eventAggregator;
+
+        public DriverManagerViewModel(IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
+
             var drivers = DriveInfo.GetDrives();
 
-            _driverListView = new CollectionView(drivers.Select(d => d.Name).ToList());
+            _eventAggregator.GetEvent<DriverListChangedEvent>().Subscribe(UpdateDrivers);
+
+            _driverListView = new ObservableCollection<string>(drivers.Select(d => d.Name).ToList());
             SelectedDriver = "C:\\";
         }
 
-        private readonly CollectionView _driverListView;
+        private void UpdateDrivers()
+        {
+            var drivers = DriveInfo.GetDrives();
+
+            _driverListView = new ObservableCollection<string>(drivers.Select(d => d.Name).ToList());
+            RaisePropertyChanged("DriverListView");
+            SelectedDriver = "C:\\";
+        }
+
+        private ObservableCollection<string> _driverListView;
         private string _selectedDriver;
 
-        public CollectionView DriverListView
+        public ObservableCollection<string> DriverListView
         {
             get { return _driverListView; }
         }

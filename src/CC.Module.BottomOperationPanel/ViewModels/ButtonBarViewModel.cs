@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 using CC.Common.Popup.Notifications;
 using Microsoft.Practices.Prism.Mvvm;
@@ -12,25 +11,19 @@ namespace CC.Module.BottomOperationPanel.ViewModels
 {
     public class ButtonBarViewModel : BindableBase
     {
-        public InteractionRequest<CopyFileNotification> CopyFileNotification { get; set; }
+        public InteractionRequest<CopyFileNotification> CopyFileNotification { get; }
         public ICommand CopyFileCommand { get; }
-        public InteractionRequest<MoveFileNotification> MoveFileNotification { get; set; }
+        public InteractionRequest<MoveFileNotification> MoveFileNotification { get; }
         public ICommand MoveFileCommand { get; }
-        public InteractionRequest<NewFileNotification> NewFileNotification { get; set; }
+        public InteractionRequest<NewFileNotification> NewFileNotification { get; }
         public ICommand NewFolderCommand { get; }
-        public InteractionRequest<DeleteFileNotification> DeleteFileNotification { get; set; }
+        public InteractionRequest<DeleteFileNotification> DeleteFileNotification { get; }
         public ICommand DeleteFileCommand { get; }
 
         public ICommand ExitProgramCommand { get; }
 
-        private readonly IUnityContainer _unityContainer;
-        private readonly IEventAggregator _eventAggregator;
-
-        public ButtonBarViewModel(IUnityContainer container, IEventAggregator eventAggregator)
+        public ButtonBarViewModel()
         {
-            _unityContainer = container;
-            _eventAggregator = eventAggregator;
-
             CopyFileNotification = new InteractionRequest<CopyFileNotification>();
             CopyFileCommand = new DelegateCommand(ExecuteCopyFileCommand);
 

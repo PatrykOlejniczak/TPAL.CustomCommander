@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using CC.Common.Infrastructure.Events;
 using CC.Common.Infrastructure.Models;
@@ -52,6 +53,7 @@ namespace CC.Common.Popup.ViewModels
         }
 
         private readonly IEventAggregator _eventAggregator;
+        private BackgroundWorker _backgroundWorker;
 
         public CopyFileViewModel(IEventAggregator eventAggregator)
         {
@@ -60,12 +62,22 @@ namespace CC.Common.Popup.ViewModels
             AcceptCommand = new DelegateCommand(AcceptInteraction);
             CancelCommand = new DelegateCommand(CancelInteraction);
 
+            _backgroundWorker = new BackgroundWorker();
+            _backgroundWorker.DoWork += new DoWorkEventHandler(BackgroundWorkerCopy);
+            _backgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BackgroundWorkerComplete);
+            _backgroundWorker.WorkerSupportsCancellation = true;
+
             _eventAggregator.GetEvent<SelectFileChangedEvent>().Subscribe(files => SelectedFiles = new ObservableCollection<FileModel>(files));
             _eventAggregator.GetEvent<DirectoryChangedEvent>().Subscribe(directory => DestinationDir = directory);
         }
 
         private void CancelInteraction()
         {
+            if (_backgroundWorker.IsBusy)
+            {
+                _backgroundWorker.CancelAsync();
+            }
+
             _notification.Confirmed = false;
             FinishInteraction?.Invoke();
         }
@@ -74,26 +86,34 @@ namespace CC.Common.Popup.ViewModels
         {
             if (Directory.Exists(DestinationDir))
             {
-                foreach (var selectedFile in SelectedFiles)
-                {
-                    if (selectedFile.Extension != "dir")
-                    {
-                        File.Copy(selectedFile.Path, DestinationDir + "\\" + selectedFile.Name, true);
-                    }
-                    else
-                    {
-                        DirectoryCopy(selectedFile.Path, DestinationDir, true);
-                    }
-                }
-
-                _eventAggregator.GetEvent<FileListUpdatedEvent>().Publish();
-
-                _notification.Confirmed = true;
-                FinishInteraction?.Invoke();
+                _backgroundWorker.RunWorkerAsync();
             }
             else
             {
                 //TODO directory exists pop-up error
+            }
+        }
+
+        private void BackgroundWorkerComplete(object sender, RunWorkerCompletedEventArgs e)
+        {
+            _eventAggregator.GetEvent<FileListUpdatedEvent>().Publish();
+
+            _notification.Confirmed = true;
+            FinishInteraction?.Invoke();
+        }
+
+        private void BackgroundWorkerCopy(object sender, DoWorkEventArgs e)
+        {
+            foreach (var selectedFile in SelectedFiles)
+            {
+                if (selectedFile.Extension != "dir")
+                {
+                    File.Copy(selectedFile.Path, DestinationDir + "\\" + selectedFile.Name, true);
+                }
+                else
+                {
+                    DirectoryCopy(selectedFile.Path, DestinationDir, true);
+                }
             }
         }
 

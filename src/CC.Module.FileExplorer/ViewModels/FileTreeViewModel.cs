@@ -9,9 +9,10 @@ using CC.Common.Infrastructure.DataProviders;
 using CC.Common.Infrastructure.Events;
 using CC.Common.Infrastructure.Models;
 using Microsoft.Practices.ObjectBuilder2;
-using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Mvvm;
+using Prism.Commands;
 using Prism.Events;
+using Prism.Interactivity.InteractionRequest;
+using Prism.Mvvm;
 
 namespace CC.Module.FileExplorer.ViewModels
 {
@@ -44,6 +45,8 @@ namespace CC.Module.FileExplorer.ViewModels
         private readonly IEventAggregator _eventAggregator;
         private readonly IFileProvider _fileProvider;
 
+        public InteractionRequest<INotification> NotificationRequest { get; set; }
+
         public FileTreeViewModel(IEventAggregator eventAggregator, IFileProvider fileProvider)
         {
             _eventAggregator = eventAggregator;
@@ -53,13 +56,20 @@ namespace CC.Module.FileExplorer.ViewModels
 
             ChangeDirectory(string.Empty);
 
-            _eventAggregator.GetEvent<FileListUpdatedEvent>().Subscribe(() => ChangeDirectory(""));
-            _eventAggregator.GetEvent<LanguageChangedEvent>().Subscribe(() => ChangeSelectFile(""));
+            NotificationRequest = new InteractionRequest<INotification>();
+
+            _eventAggregator.GetEvent<FileListUpdatedEvent>()
+                            .Subscribe(() => ChangeDirectory(""));
+            _eventAggregator.GetEvent<LanguageChangedEvent>()
+                            .Subscribe(() => ChangeSelectFile(""));
         }
 
         public void ActivateControl()
         {
-            _eventAggregator.GetEvent<DirectoryChangedEvent>().Publish(_actualPath);
+            _eventAggregator.GetEvent<DirectoryChangedEvent>()
+                            .Publish(_actualPath);
+            _eventAggregator.GetEvent<SelectFileChangedEvent>()
+                            .Publish(Files.ToList().FindAll(file => file.IsSelected));
         }
 
         public void ChangeSelectFile(string fileName)
@@ -86,7 +96,8 @@ namespace CC.Module.FileExplorer.ViewModels
             }
             catch (UnauthorizedAccessException exception)
             {
-                ChangeDirectory(_actualPath);
+                NotificationRequest.Raise(new Notification { Content = exception.Message, Title = "Error" });
+                ChangeDirectory("");
             }
 
             _eventAggregator.GetEvent<DirectoryChangedEvent>().Publish(_actualPath);
@@ -125,6 +136,7 @@ namespace CC.Module.FileExplorer.ViewModels
             }
             catch (UnauthorizedAccessException exception)
             {
+                NotificationRequest.Raise(new Notification { Content = exception.Message, Title = "Error" });
                 ChangeDirectory(_actualPath);
             }
             _eventAggregator.GetEvent<DirectoryChangedEvent>()

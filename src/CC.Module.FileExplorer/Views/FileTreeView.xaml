@@ -4,8 +4,14 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:converters="clr-namespace:CC.Module.FileExplorer.Converters"
              xmlns:views="clr-namespace:CC.Module.FileExplorer.Views"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              prism:ViewModelLocator.AutoWireViewModel="True">
-
+    <i:Interaction.Triggers>
+        <prism:InteractionRequestTrigger SourceObject="{Binding NotificationRequest}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True" />
+        </prism:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
+    
     <UserControl.Resources>
         <converters:SizeToBytesConverter x:Key="SizeToBytesConverter"/>
         <converters:DateToCultureDateConverter x:Key="DateToCultureDateConverter"/>

@@ -32,8 +32,8 @@ namespace CustomCommander.Bootstrapper
 
         protected override void ConfigureModuleCatalog()
         {
-            ModuleCatalog moduleCatalog = (ModuleCatalog)ModuleCatalog;            
-            
+            ModuleCatalog moduleCatalog = (ModuleCatalog)ModuleCatalog;
+
             moduleCatalog.AddModule(typeof(TopOperationPanelModule));
             moduleCatalog.AddModule(typeof(FileExplorerModule));
             moduleCatalog.AddModule(typeof(BottomOperationPanelModule));
@@ -45,14 +45,14 @@ namespace CustomCommander.Bootstrapper
 
             Container.RegisterType<IFileProvider, FileProvider>();
 
-            Container.RegisterType<ButtonBarViewModel>();
-            Container.RegisterType<LanguagePanelViewModel>();
-            Container.RegisterType<FileTreeViewModel>(new PerResolveLifetimeManager());
-
             Container.RegisterType<CopyFileViewModel>();
             Container.RegisterType<DeleteFileViewModel>();
             Container.RegisterType<MoveFileViewModel>();
             Container.RegisterType<NewFileViewModel>();
+
+            Container.RegisterType<ButtonBarViewModel>();
+            Container.RegisterType<LanguagePanelViewModel>();
+            Container.RegisterType<FileTreeViewModel>(new PerResolveLifetimeManager());
 
             base.ConfigureContainer();
         }

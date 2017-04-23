@@ -35,7 +35,8 @@ namespace CC.Common.Infrastructure.DataProviders.Implementations
                     Name = temp.Substring(temp.LastIndexOf("\\", StringComparison.Ordinal) + 1),
                     Extension = new FileInfo(temp).Extension,
                     Size = new FileInfo(temp).Length,
-                    CreatedDate = File.GetCreationTime(temp)
+                    CreatedDate = File.GetCreationTime(temp),
+                    Path = temp
                 });
             }
 
@@ -72,7 +73,8 @@ namespace CC.Common.Infrastructure.DataProviders.Implementations
                     Name = temp.Substring(temp.LastIndexOf("\\", StringComparison.Ordinal) + 1),
                     Size = null,
                     Extension = "dir",
-                    CreatedDate = Directory.GetLastWriteTime(temp)
+                    CreatedDate = Directory.GetLastWriteTime(temp),
+                    Path = temp
                 });
             }
 

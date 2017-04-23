@@ -16,8 +16,6 @@ namespace CC.Common.Popup.ViewModels
         public DelegateCommand AcceptCommand { get; private set; }
         public DelegateCommand CancelCommand { get; private set; }
 
-        private readonly IEventAggregator _eventAggregator;
-
         private NewFileNotification _notification;
         public INotification Notification
         {
@@ -47,6 +45,8 @@ namespace CC.Common.Popup.ViewModels
             }
         }
 
+        private readonly IEventAggregator _eventAggregator;
+
         public NewFileViewModel(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
@@ -74,7 +74,10 @@ namespace CC.Common.Popup.ViewModels
                 _notification.Confirmed = true;
                 FinishInteraction?.Invoke();
             }
-            //TODO directory exists pop-up error
+            else
+            {
+                //TODO directory exists pop-up error
+            }
         }
     }
 }

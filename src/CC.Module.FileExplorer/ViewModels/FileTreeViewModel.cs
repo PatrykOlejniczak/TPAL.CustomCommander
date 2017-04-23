@@ -33,7 +33,7 @@ namespace CC.Module.FileExplorer.ViewModels
                 _observableFiles = value;
                 _filesView = new CollectionViewSource();
                 _filesView.Source = _observableFiles;
-                
+
                 OnPropertyChanged("FilesView");
             }
         }
@@ -51,7 +51,7 @@ namespace CC.Module.FileExplorer.ViewModels
 
             SortFilesCommand = new DelegateCommand<string>(ExecuteSortFiles);
 
-            ChangeDirectory(string.Empty);            
+            ChangeDirectory(string.Empty);
 
             _eventAggregator.GetEvent<LanguageChangedEvent>().Subscribe(() => ChangeSelectFile(""));
         }
@@ -67,7 +67,7 @@ namespace CC.Module.FileExplorer.ViewModels
             Files = Files;
 
             _eventAggregator.GetEvent<SelectFileChangedEvent>()
-                            .Publish(Files.ToList().FindAll(f => f.IsSelected));
+                            .Publish(Files.ToList().FindAll(file => file.IsSelected));
         }
 
         public void ChangeDirectory(string path)

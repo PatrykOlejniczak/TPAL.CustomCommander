@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:converters="clr-namespace:CC.Module.FileExplorer.Converters"
+             xmlns:views="clr-namespace:CC.Module.FileExplorer.Views"
              prism:ViewModelLocator.AutoWireViewModel="True">
 
     <UserControl.Resources>
@@ -12,7 +13,18 @@
     </UserControl.Resources>
 
     <Grid>
-        <ListView ItemsSource="{Binding FilesView}" SelectionMode="Single">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <views:DriverManagerView Grid.Row="0"
+                                 x:Name="DriverManagerView"
+                                 Width="50"
+                                 Margin="2"
+                                 HorizontalAlignment="Left"/>
+        <ListView Grid.Row="1"
+                  ItemsSource="{Binding FilesView}"
+                  SelectionMode="Single">
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
                     <EventSetter Event="PreviewMouseRightButtonDown"

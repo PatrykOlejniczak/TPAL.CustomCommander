@@ -109,5 +109,26 @@ namespace CC.Module.FileExplorer.ViewModels
                 _sortAscending = true;
             }
         }
+
+        public void ChangeDriver(string driver)
+        {
+            var desitinationPath = Path.GetFullPath(driver);
+
+            Files = new ObservableCollection<FileModel>();
+
+            try
+            {
+                Files.AddRange(_fileProvider.GetFilesFromLocation(Path.GetFullPath(desitinationPath)));
+                Files.AddRange(_fileProvider.GetDirectoriesFromLocation(Path.GetFullPath(desitinationPath)));
+
+                _actualPath = desitinationPath;
+            }
+            catch (UnauthorizedAccessException exception)
+            {
+                ChangeDirectory(_actualPath);
+            }
+            _eventAggregator.GetEvent<DirectoryChangedEvent>()
+                .Publish(_actualPath);
+        }
     }
 }

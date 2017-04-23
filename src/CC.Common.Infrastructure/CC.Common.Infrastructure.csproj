@@ -102,7 +102,6 @@
     <Compile Include="Events\DirectoryChangedEvent.cs" />
     <Compile Include="Events\FileListUpdatedEvent.cs" />
     <Compile Include="Events\FilePathChangedEvent.cs" />
-    <Compile Include="Events\DriverChangedEvent.cs" />
     <Compile Include="Events\LanguageChangedEvent.cs" />
     <Compile Include="Events\SelectFileChangedEvent.cs" />
     <Compile Include="Models\FileModel.cs" />

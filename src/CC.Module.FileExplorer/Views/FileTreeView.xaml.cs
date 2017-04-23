@@ -32,6 +32,8 @@ namespace CC.Module.FileExplorer.Views
         public FileTreeView()
         {
             InitializeComponent();
+
+            ((DriverManagerViewModel)DriverManagerView.DataContext).DriverChangedEvent += ((FileTreeViewModel)DataContext).ChangeDriver;
         }
 
         private void UpdateTranslations()

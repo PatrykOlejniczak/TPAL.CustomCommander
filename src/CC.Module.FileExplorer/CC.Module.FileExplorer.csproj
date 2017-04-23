@@ -118,7 +118,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\DriverManagerViewModel.cs" />
     <Compile Include="ViewModels\FileTreeViewModel.cs" />
+    <Compile Include="Views\DriverManagerView.xaml.cs">
+      <DependentUpon>DriverManagerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\FileExplorerView.xaml.cs">
       <DependentUpon>FileExplorerView.xaml</DependentUpon>
     </Compile>
@@ -141,6 +145,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\DriverManagerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\FileExplorerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

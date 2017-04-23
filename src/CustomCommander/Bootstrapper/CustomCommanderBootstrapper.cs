@@ -6,6 +6,7 @@ using CC.Module.BottomOperationPanel;
 using CC.Module.BottomOperationPanel.ViewModels;
 using CC.Module.FileExplorer;
 using CC.Module.FileExplorer.ViewModels;
+using CC.Module.FileExplorer.Views;
 using CC.Module.TopOperationPanel;
 using CC.Module.TopOperationPanel.ViewModels;
 using Microsoft.Practices.Prism.PubSubEvents;
@@ -53,6 +54,7 @@ namespace CustomCommander.Bootstrapper
             Container.RegisterType<ButtonBarViewModel>();
             Container.RegisterType<LanguagePanelViewModel>();
             Container.RegisterType<FileTreeViewModel>(new PerResolveLifetimeManager());
+            Container.RegisterType<DriverManagerView>(new PerResolveLifetimeManager());
 
             base.ConfigureContainer();
         }

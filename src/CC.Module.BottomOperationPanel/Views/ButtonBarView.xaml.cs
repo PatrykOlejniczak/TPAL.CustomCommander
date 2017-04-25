@@ -14,6 +14,11 @@ namespace CC.Module.BottomOperationPanel.Views
             eventAggregator.GetEvent<LanguageChangedEvent>().Subscribe(UpdateTranslations);
 
             InitializeComponent();
+
+            CopyFileView.EventAggregator = eventAggregator;
+            DeleteFileView.EventAggregator = eventAggregator;
+            NewFileView.EventAggregator = eventAggregator;
+            MoveFileView.EventAggregator = eventAggregator;
         }
 
         private void UpdateTranslations()

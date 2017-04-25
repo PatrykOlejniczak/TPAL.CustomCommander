@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:properties="clr-namespace:CC.Common.Popup.Properties"
              prism:ViewModelLocator.AutoWireViewModel="True"
              Width="400">
 
@@ -14,8 +15,15 @@
     
     <StackPanel>
         <StackPanel Margin="10, 10, 10, 10">
-            <TextBlock Text="{Binding SelectedFiles.Count, Mode=OneWay}"
-                       Margin="0, 0, 0, 10"/>
+            <TextBlock Text="Pliki do skopiowania:" />
+            <ItemsControl ItemsSource="{Binding SelectedFiles}"
+                          Margin="5">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
             <TextBox Text="{Binding DestinationDir}"/>
         </StackPanel>
         <Grid>
@@ -24,8 +32,8 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Button AutomationProperties.AutomationId="CopyFileAcceptButton" Grid.Column="0" Margin="10, 0, 10, 10" Command="{Binding AcceptCommand}">Accept</Button>
-            <Button AutomationProperties.AutomationId="CopyFileCancelButton" Grid.Column="1" Margin="10, 0, 10, 10" Command="{Binding CancelCommand}">Cancel</Button>
+            <Button x:Name="AcceptButton" AutomationProperties.AutomationId="CopyFileAcceptButton" Grid.Column="0" Margin="10, 0, 10, 10" Command="{Binding AcceptCommand}" Content="{x:Static properties:Resources.Accept}"/>
+            <Button x:Name="CancelButton" AutomationProperties.AutomationId="CopyFileCancelButton" Grid.Column="1" Margin="10, 0, 10, 10" Command="{Binding CancelCommand}" Content="{x:Static properties:Resources.Cancel}"/>
         </Grid>
     </StackPanel>
 

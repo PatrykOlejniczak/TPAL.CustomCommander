@@ -10,7 +10,7 @@
         <prism:InteractionRequestTrigger SourceObject="{Binding CopyFileNotification}">
             <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
                 <prism:PopupWindowAction.WindowContent>
-                    <views:CopyFileView />
+                    <views:CopyFileView x:Name="CopyFileView"/>
                 </prism:PopupWindowAction.WindowContent>
             </prism:PopupWindowAction>
         </prism:InteractionRequestTrigger>
@@ -18,7 +18,7 @@
         <prism:InteractionRequestTrigger SourceObject="{Binding MoveFileNotification}">
             <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
                 <prism:PopupWindowAction.WindowContent>
-                    <views:MoveFileView />
+                    <views:MoveFileView x:Name="MoveFileView"/>
                 </prism:PopupWindowAction.WindowContent>
             </prism:PopupWindowAction>
         </prism:InteractionRequestTrigger>
@@ -26,7 +26,7 @@
         <prism:InteractionRequestTrigger SourceObject="{Binding NewFileNotification}">
             <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
                 <prism:PopupWindowAction.WindowContent>
-                    <views:NewFileView />
+                    <views:NewFileView x:Name="NewFileView"/>
                 </prism:PopupWindowAction.WindowContent>
             </prism:PopupWindowAction>
         </prism:InteractionRequestTrigger>
@@ -34,7 +34,7 @@
         <prism:InteractionRequestTrigger SourceObject="{Binding DeleteFileNotification}">
             <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
                 <prism:PopupWindowAction.WindowContent>
-                    <views:DeleteFileView />
+                    <views:DeleteFileView x:Name="DeleteFileView"/>
                 </prism:PopupWindowAction.WindowContent>
             </prism:PopupWindowAction>
         </prism:InteractionRequestTrigger>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using CC.Common.Infrastructure.Events;
 using CC.Common.Infrastructure.Models;
@@ -41,6 +42,10 @@ namespace CC.Common.Popup.ViewModels
 
         private readonly IEventAggregator _eventAggregator;
 
+        private BackgroundWorker _backgroundWorker;
+
+        public InteractionRequest<INotification> NotificationRequest { get; }
+
         public DeleteFileViewModel(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
@@ -48,16 +53,30 @@ namespace CC.Common.Popup.ViewModels
             AcceptCommand = new DelegateCommand(AcceptInteraction);
             CancelCommand = new DelegateCommand(CancelInteraction);
 
+            NotificationRequest = new InteractionRequest<INotification>();
+
+            _backgroundWorker = new BackgroundWorker();
+            _backgroundWorker.DoWork += new DoWorkEventHandler(BackgroundWorkerDelete);
+            _backgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BackgroundWorkerComplete);
+            _backgroundWorker.WorkerSupportsCancellation = true;
+
             _eventAggregator.GetEvent<SelectFileChangedEvent>().Subscribe(files => SelectedFiles = new ObservableCollection<FileModel>(files));
         }
 
-        private void CancelInteraction()
+        private void BackgroundWorkerComplete(object sender, RunWorkerCompletedEventArgs e)
         {
-            _notification.Confirmed = false;
-            FinishInteraction?.Invoke();
+            if (e.Error != null)
+                NotificationRequest.Raise(new Notification { Content = e.Error.Message, Title = "Error" });
+            else
+            {
+                _eventAggregator.GetEvent<FileListUpdatedEvent>().Publish();
+
+                _notification.Confirmed = true;
+                FinishInteraction?.Invoke();
+            }
         }
 
-        private void AcceptInteraction()
+        private void BackgroundWorkerDelete(object sender, DoWorkEventArgs e)
         {
             foreach (var selectedFile in SelectedFiles)
             {
@@ -82,11 +101,22 @@ namespace CC.Common.Popup.ViewModels
                     di.Delete();
                 }
             }
+        }
 
-            _eventAggregator.GetEvent<FileListUpdatedEvent>().Publish();
+        private void CancelInteraction()
+        {
+            if (_backgroundWorker.IsBusy)
+            {
+                _backgroundWorker.CancelAsync();
+            }
 
-            _notification.Confirmed = true;
+            _notification.Confirmed = false;
             FinishInteraction?.Invoke();
+        }
+
+        private void AcceptInteraction()
+        {
+            _backgroundWorker.RunWorkerAsync();
         }
     }
 }

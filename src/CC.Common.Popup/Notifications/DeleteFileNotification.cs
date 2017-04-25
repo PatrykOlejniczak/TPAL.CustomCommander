@@ -3,7 +3,5 @@
 namespace CC.Common.Popup.Notifications
 {
     public class DeleteFileNotification : Confirmation
-    {
-        
-    }
+    { }
 }

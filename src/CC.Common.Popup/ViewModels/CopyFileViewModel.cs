@@ -88,14 +88,7 @@ namespace CC.Common.Popup.ViewModels
 
         private void AcceptInteraction()
         {
-            if (Directory.Exists(DestinationDir))
-            {
-                _backgroundWorker.RunWorkerAsync();
-            }
-            else
-            {
-                //TODO directory exists pop-up error
-            }
+            _backgroundWorker.RunWorkerAsync();
         }
 
         private void BackgroundWorkerComplete(object sender, RunWorkerCompletedEventArgs e)
@@ -126,18 +119,13 @@ namespace CC.Common.Popup.ViewModels
             }
         }
 
-        private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
+        private void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
         {
-            // Get the subdirectories for the specified directory.
             DirectoryInfo dir = new DirectoryInfo(sourceDirName);
-
             DirectoryInfo[] dirs = dir.GetDirectories();
-            // If the destination directory doesn't exist, create it.
 
             Directory.CreateDirectory(destDirName);
 
-
-            // Get the files in the directory and copy them to the new location.
             FileInfo[] files = dir.GetFiles();
             foreach (FileInfo file in files)
             {
@@ -145,7 +133,6 @@ namespace CC.Common.Popup.ViewModels
                 file.CopyTo(temppath, false);
             }
 
-            // If copying subdirectories, copy them and their contents to new location.
             if (copySubDirs)
             {
                 foreach (DirectoryInfo subdir in dirs)

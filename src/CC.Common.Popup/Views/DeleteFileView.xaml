@@ -11,7 +11,7 @@
             <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True" />
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
-
+    
     <StackPanel>
         <StackPanel Margin="10, 10, 10, 10">
             <TextBlock Text="Czy na pewno chcesz usunąć pliki:" />

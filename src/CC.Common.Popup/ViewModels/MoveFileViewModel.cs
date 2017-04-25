@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using CC.Common.Infrastructure.Events;
 using CC.Common.Infrastructure.Models;
@@ -51,6 +52,9 @@ namespace CC.Common.Popup.ViewModels
         }
 
         private readonly IEventAggregator _eventAggregator;
+        private BackgroundWorker _backgroundWorker;
+
+        public InteractionRequest<INotification> NotificationRequest { get; }
 
         public MoveFileViewModel(IEventAggregator eventAggregator)
         {
@@ -59,17 +63,31 @@ namespace CC.Common.Popup.ViewModels
             AcceptCommand = new DelegateCommand(AcceptSelectedItem);
             CancelCommand = new DelegateCommand(CancelInteraction);
 
+            NotificationRequest = new InteractionRequest<INotification>();
+
+            _backgroundWorker = new BackgroundWorker();
+            _backgroundWorker.DoWork += new DoWorkEventHandler(BackgroundWorkerMove);
+            _backgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BackgroundWorkerComplete);
+            _backgroundWorker.WorkerSupportsCancellation = true;
+
             _eventAggregator.GetEvent<SelectFileChangedEvent>().Subscribe(files => SelectedFiles = new ObservableCollection<FileModel>(files));
             _eventAggregator.GetEvent<DirectoryChangedEvent>().Subscribe(directory => DestinationDir = directory);
         }
 
-        private void CancelInteraction()
+        private void BackgroundWorkerComplete(object sender, RunWorkerCompletedEventArgs e)
         {
-            _notification.Confirmed = false;
-            FinishInteraction?.Invoke();
+            if (e.Error != null)
+                NotificationRequest.Raise(new Notification { Content = e.Error.Message, Title = "Error" });
+            else
+            {
+                _eventAggregator.GetEvent<FileListUpdatedEvent>().Publish();
+
+                _notification.Confirmed = true;
+                FinishInteraction?.Invoke();
+            }
         }
 
-        private void AcceptSelectedItem()
+        private void BackgroundWorkerMove(object sender, DoWorkEventArgs e)
         {
             if (Directory.Exists(DestinationDir))
             {
@@ -84,15 +102,23 @@ namespace CC.Common.Popup.ViewModels
                         Directory.Move(selectedFile.Path, DestinationDir + "\\" + selectedFile.Name);
                     }
                 }
+            }
+        }
 
-                _eventAggregator.GetEvent<FileListUpdatedEvent>().Publish();
-
-                _notification.Confirmed = true;
-                FinishInteraction?.Invoke();
+        private void CancelInteraction()
+        {
+            if (_backgroundWorker.IsBusy)
+            {
+                _backgroundWorker.CancelAsync();
             }
 
-            _notification.Confirmed = true;
+            _notification.Confirmed = false;
             FinishInteraction?.Invoke();
+        }
+
+        private void AcceptSelectedItem()
+        {
+            _backgroundWorker.RunWorkerAsync();
         }
     }
 }

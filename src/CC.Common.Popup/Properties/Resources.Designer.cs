@@ -88,11 +88,29 @@ namespace CC.Common.Popup.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Files/folders to copy:.
+        /// </summary>
+        public static string CopyQuote {
+            get {
+                return ResourceManager.GetString("CopyQuote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files/folders to delete:.
+        /// </summary>
+        public static string DeleteQuote {
+            get {
+                return ResourceManager.GetString("DeleteQuote", resourceCulture);
             }
         }
         
@@ -111,6 +129,15 @@ namespace CC.Common.Popup.Properties {
         public static string Move {
             get {
                 return ResourceManager.GetString("Move", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files/folders to move:.
+        /// </summary>
+        public static string MoveQuote {
+            get {
+                return ResourceManager.GetString("MoveQuote", resourceCulture);
             }
         }
         

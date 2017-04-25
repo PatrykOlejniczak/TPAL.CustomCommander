@@ -35,6 +35,7 @@ namespace CC.Common.Popup.Views
         {
             AcceptButton.Content = Properties.Resources.Accept;
             CancelButton.Content = Properties.Resources.Cancel;
+            QuoteTextBlock.Text = Properties.Resources.CopyQuote;
         }
     }
 }

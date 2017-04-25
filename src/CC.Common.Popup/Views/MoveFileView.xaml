@@ -15,7 +15,7 @@
     
     <StackPanel>
         <StackPanel Margin="10, 10, 10, 10">
-            <TextBlock Text="Pliki do przeniesienia:" />
+            <TextBlock x:Name="QuoteTextBlock" Text="{x:Static properties:Resources.MoveQuote}"/>
             <ItemsControl ItemsSource="{Binding SelectedFiles}"
                           Margin="5">
                 <ItemsControl.ItemTemplate>

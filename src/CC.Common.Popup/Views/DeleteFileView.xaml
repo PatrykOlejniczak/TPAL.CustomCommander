@@ -15,7 +15,7 @@
     
     <StackPanel>
         <StackPanel Margin="10, 10, 10, 10">
-            <TextBlock Text="Czy na pewno chcesz usunąć pliki:" />
+            <TextBlock x:Name="QuoteTextBlock" Text="{x:Static properties:Resources.DeleteQuote}"/>
             <ItemsControl ItemsSource="{Binding SelectedFiles}"
                           Margin="5">
                 <ItemsControl.ItemTemplate>

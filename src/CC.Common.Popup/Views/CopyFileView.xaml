@@ -32,7 +32,13 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="AcceptButton" AutomationProperties.AutomationId="CopyFileAcceptButton" Grid.Column="0" Margin="10, 0, 10, 10" Command="{Binding AcceptCommand}" Content="{x:Static properties:Resources.Accept}"/>
+            <Button x:Name="AcceptButton"
+                    AutomationProperties.AutomationId="CopyFileAcceptButton"
+                    Grid.Column="0"
+                    Margin="10, 0, 10, 10"
+                    Command="{Binding AcceptCommand}"
+                    Content="{x:Static properties:Resources.Accept}"
+                    IsEnabled="{Binding IsEnabled}" />
             <Button x:Name="CancelButton" AutomationProperties.AutomationId="CopyFileCancelButton" Grid.Column="1" Margin="10, 0, 10, 10" Command="{Binding CancelCommand}" Content="{x:Static properties:Resources.Cancel}"/>
         </Grid>
     </StackPanel>

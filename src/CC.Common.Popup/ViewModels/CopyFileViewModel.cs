@@ -52,6 +52,17 @@ namespace CC.Common.Popup.ViewModels
             }
         }
 
+        private bool _isEnabled;
+        public bool IsEnabled
+        {
+            get { return _isEnabled; }
+            set
+            {
+                SetProperty(ref _isEnabled, value);
+                RaisePropertyChanged();
+            }
+        }
+
         private readonly IEventAggregator _eventAggregator;
         private BackgroundWorker _backgroundWorker;
 
@@ -73,6 +84,8 @@ namespace CC.Common.Popup.ViewModels
 
             _eventAggregator.GetEvent<SelectFileChangedEvent>().Subscribe(files => SelectedFiles = new ObservableCollection<FileModel>(files));
             _eventAggregator.GetEvent<DirectoryChangedEvent>().Subscribe(directory => DestinationDir = directory);
+
+            IsEnabled = true;
         }
 
         private void CancelInteraction()
@@ -88,6 +101,7 @@ namespace CC.Common.Popup.ViewModels
 
         private void AcceptInteraction()
         {
+            IsEnabled = false;
             _backgroundWorker.RunWorkerAsync();
         }
 

@@ -50,6 +50,7 @@ namespace CustomCommander.Bootstrapper
             Container.RegisterType<DeleteFileViewModel>();
             Container.RegisterType<MoveFileViewModel>();
             Container.RegisterType<NewFileViewModel>();
+            Container.RegisterType<OverrideInfoViewModel>(new PerResolveLifetimeManager());
 
             Container.RegisterType<ButtonBarViewModel>();
             Container.RegisterType<LanguagePanelViewModel>();

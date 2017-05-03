@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Windows.Input;
+using System.Windows.Threading;
 using CC.Common.Infrastructure.Events;
 using CC.Common.Infrastructure.Models;
 using CC.Common.Popup.Notifications;
@@ -10,6 +12,7 @@ using Prism.Commands;
 using Prism.Events;
 using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
+using System.Windows;
 
 namespace CC.Common.Popup.ViewModels
 {
@@ -66,10 +69,17 @@ namespace CC.Common.Popup.ViewModels
         private readonly IEventAggregator _eventAggregator;
         private BackgroundWorker _backgroundWorker;
 
+        private bool _overrideActualFile = false;
+        private bool _rememberMyChoice = false;
+
         public InteractionRequest<INotification> NotificationRequest { get; }
+
+        public InteractionRequest<OverrideInfoNotification> OverrideInfoNotification { get; }
 
         public CopyFileViewModel(IEventAggregator eventAggregator)
         {
+            OverrideInfoNotification = new InteractionRequest<OverrideInfoNotification>();
+
             _eventAggregator = eventAggregator;
 
             AcceptCommand = new DelegateCommand(AcceptInteraction);
@@ -86,6 +96,17 @@ namespace CC.Common.Popup.ViewModels
             _eventAggregator.GetEvent<DirectoryChangedEvent>().Subscribe(directory => DestinationDir = directory);
 
             IsEnabled = true;
+        }
+
+        private void ExecuteOverrideInfoCommand(string fileName = null)
+        {
+            OverrideInfoNotification.Raise(
+                new OverrideInfoNotification { Title = "Copy file", Content = fileName },
+                r =>
+                {
+                    _rememberMyChoice = r.RememberChoice;
+                    _overrideActualFile = r.Confirmed;
+                });
         }
 
         private void CancelInteraction()
@@ -108,7 +129,7 @@ namespace CC.Common.Popup.ViewModels
         private void BackgroundWorkerComplete(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
-                NotificationRequest.Raise(new Notification {Content = e.Error.Message, Title = "Error"});
+                NotificationRequest.Raise(new Notification { Content = e.Error.Message, Title = "Error" });
             else
             {
                 _eventAggregator.GetEvent<FileListUpdatedEvent>().Publish();
@@ -116,6 +137,8 @@ namespace CC.Common.Popup.ViewModels
                 _notification.Confirmed = true;
                 FinishInteraction?.Invoke();
             }
+
+            IsEnabled = true;
         }
 
         private void BackgroundWorkerCopy(object sender, DoWorkEventArgs e)
@@ -124,13 +147,24 @@ namespace CC.Common.Popup.ViewModels
             {
                 if (selectedFile.Extension != "dir")
                 {
-                    File.Copy(selectedFile.Path, DestinationDir + "\\" + selectedFile.Name, true);
+                    if (File.Exists(DestinationDir + "\\" + selectedFile.Name))
+                    {
+                        if (!_rememberMyChoice)
+                        {
+                            Application.Current.Dispatcher.Invoke(() => ExecuteOverrideInfoCommand(selectedFile.Name));
+                        }
+                    }
+
+                    if(_overrideActualFile)
+                        File.Copy(selectedFile.Path, DestinationDir + "\\" + selectedFile.Name, _overrideActualFile);
                 }
                 else
                 {
                     DirectoryCopy(selectedFile.Path, DestinationDir, true);
                 }
             }
+
+            _rememberMyChoice = false;
         }
 
         private void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
@@ -143,8 +177,18 @@ namespace CC.Common.Popup.ViewModels
             FileInfo[] files = dir.GetFiles();
             foreach (FileInfo file in files)
             {
+                if (File.Exists(DestinationDir + "\\" + file.Name))
+                {
+                    if (!_rememberMyChoice)
+                    {
+                        Application.Current.Dispatcher.Invoke(() => ExecuteOverrideInfoCommand(file.Name));
+                    }
+                }
+
                 string temppath = Path.Combine(destDirName, file.Name);
-                file.CopyTo(temppath, false);
+
+                if (_overrideActualFile)
+                    file.CopyTo(temppath, _overrideActualFile);
             }
 
             if (copySubDirs)

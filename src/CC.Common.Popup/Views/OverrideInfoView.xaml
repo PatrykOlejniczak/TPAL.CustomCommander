@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="CC.Common.Popup.Views.OverrideInfoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             Width="400">
+    <StackPanel Margin="10, 10, 10, 10">
+        <StackPanel Margin="0, 0, 0, 5">
+            <TextBlock Text="The destination already has a file named:"/>
+            <TextBlock Text="{Binding FileName}"
+                       Margin="10, 10, 0, 10"/>
+        </StackPanel>
+
+        <CheckBox Content="Remember my choice"
+                  Margin="0, 0, 0, 10"
+                  IsChecked="{Binding RememberChoice}"/>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="AcceptButton"
+                Grid.Column="0"
+                Margin="0, 0, 10, 0"
+                Command="{Binding AcceptCommand}"
+                Content="Replace the file" />
+            <Button x:Name="CancelButton"
+                Grid.Column="1"
+                Margin="10, 0, 0, 0"
+                Command="{Binding CancelCommand}"
+                Content="Skip this file"/>
+        </Grid>
+        
+    </StackPanel>
+</UserControl>

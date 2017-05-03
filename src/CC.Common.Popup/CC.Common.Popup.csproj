@@ -100,6 +100,7 @@
     <Compile Include="Notifications\DeleteFileNotification.cs" />
     <Compile Include="Notifications\MoveFileNotification.cs" />
     <Compile Include="Notifications\NewFileNotification.cs" />
+    <Compile Include="Notifications\OverrideInfoNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
@@ -120,6 +121,7 @@
     <Compile Include="ViewModels\DeleteFileViewModel.cs" />
     <Compile Include="ViewModels\MoveFileViewModel.cs" />
     <Compile Include="ViewModels\NewFileViewModel.cs" />
+    <Compile Include="ViewModels\OverrideInfoViewModel.cs" />
     <Compile Include="Views\CopyFileView.xaml.cs">
       <DependentUpon>CopyFileView.xaml</DependentUpon>
     </Compile>
@@ -131,6 +133,9 @@
     </Compile>
     <Compile Include="Views\NewFileView.xaml.cs">
       <DependentUpon>NewFileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OverrideInfoView.xaml.cs">
+      <DependentUpon>OverrideInfoView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +175,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NewFileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OverrideInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

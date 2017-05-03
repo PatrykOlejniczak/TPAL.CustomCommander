@@ -29,6 +29,7 @@
                                  Margin="2"
                                  HorizontalAlignment="Left"/>
         <ListView Grid.Row="1"
+                  x:Name="FilesListView"
                   ItemsSource="{Binding FilesView}"
                   SelectionMode="Single">
             <ListView.ItemContainerStyle>
@@ -42,7 +43,8 @@
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.View>
-                <GridView>
+                <GridView x:Name="FilesGridView">
+                    <GridViewColumn Header="IsCustomModel" DisplayMemberBinding="{Binding IsCustomModel}" />
                     <GridViewColumn>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

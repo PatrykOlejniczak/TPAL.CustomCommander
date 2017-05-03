@@ -35,6 +35,7 @@ namespace CC.Module.FileExplorer.Views
         public FileTreeView()
         {
             InitializeComponent();
+            FilesGridView.Columns[0].Width = 0;
 
             ((DriverManagerViewModel)DriverManagerView.DataContext).DriverChangedEvent += ((FileTreeViewModel)DataContext).ChangeDriver;
 

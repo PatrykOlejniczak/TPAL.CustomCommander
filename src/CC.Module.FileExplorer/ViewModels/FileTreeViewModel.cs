@@ -36,6 +36,8 @@ namespace CC.Module.FileExplorer.ViewModels
                 _filesView.Source = _observableFiles;
 
                 OnPropertyChanged("FilesView");
+                _sortAscending = true;
+                ExecuteSortFiles("Name");
             }
         }
 
@@ -111,14 +113,17 @@ namespace CC.Module.FileExplorer.ViewModels
 
             if (_sortAscending)
             {
+                _filesView.SortDescriptions.Add(new SortDescription("IsCustomModel", ListSortDirection.Descending));
                 _filesView.SortDescriptions.Add(new SortDescription(sortColumn, ListSortDirection.Ascending));
                 _sortAscending = false;
             }
             else
             {
+                _filesView.SortDescriptions.Add(new SortDescription("IsCustomModel", ListSortDirection.Descending));
                 _filesView.SortDescriptions.Add(new SortDescription(sortColumn, ListSortDirection.Descending));
                 _sortAscending = true;
             }
+
         }
 
         public void ChangeDriver(string driver)

@@ -36,6 +36,7 @@ namespace CC.Common.Infrastructure.DataProviders.Implementations
                     Extension = new FileInfo(temp).Extension,
                     Size = new FileInfo(temp).Length,
                     CreatedDate = File.GetCreationTime(temp),
+                    IsCustomModel = false,
                     Path = temp
                 });
             }
@@ -73,6 +74,7 @@ namespace CC.Common.Infrastructure.DataProviders.Implementations
                     Name = temp.Substring(temp.LastIndexOf("\\", StringComparison.Ordinal) + 1),
                     Size = null,
                     Extension = "dir",
+                    IsCustomModel = false,
                     CreatedDate = Directory.GetLastWriteTime(temp),
                     Path = temp
                 });
@@ -91,8 +93,9 @@ namespace CC.Common.Infrastructure.DataProviders.Implementations
                 {
                     Icon = new BitmapImage(new Uri("pack://application:,,,/CC.Common.Infrastructure;Component/Images/arrow_back.png")),
                     Name = "..\\",
-                    Extension = null,
+                    Extension = "",
                     Size = null,
+                    IsCustomModel = true,
                     CreatedDate = null
                 };
                 return returnFile;

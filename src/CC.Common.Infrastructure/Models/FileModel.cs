@@ -11,7 +11,7 @@ namespace CC.Common.Infrastructure.Models
         public string Extension { get; set; }
         public long? Size { get; set; }
         public DateTime? CreatedDate { get; set; }
-
+        public bool IsCustomModel { get; set; }
         public bool IsSelected { get; set; }
     }
 }

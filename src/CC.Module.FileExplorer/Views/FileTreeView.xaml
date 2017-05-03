@@ -21,6 +21,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <views:DriverManagerView Grid.Row="0"
@@ -28,7 +29,10 @@
                                  Width="50"
                                  Margin="2"
                                  HorizontalAlignment="Left"/>
-        <ListView Grid.Row="1"
+        <TextBlock Grid.Row="1"
+                   Margin="2"
+                   Text="{Binding DestinationDir}" />
+        <ListView Grid.Row="2"
                   x:Name="FilesListView"
                   ItemsSource="{Binding FilesView}"
                   SelectionMode="Single">

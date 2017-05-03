@@ -18,7 +18,7 @@ namespace CC.Module.FileExplorer.ViewModels
 {
     public class FileTreeViewModel : BindableBase
     {
-        private string _actualPath = "c:";
+        private string _actualPath = "C:";
 
         public ICommand SortFilesCommand { get; }
 
@@ -103,6 +103,18 @@ namespace CC.Module.FileExplorer.ViewModels
             }
 
             _eventAggregator.GetEvent<DirectoryChangedEvent>().Publish(_actualPath);
+            DestinationDir = _actualPath;
+        }
+
+        private string _destinationDir;
+        public string DestinationDir
+        {
+            get { return _destinationDir; }
+            set
+            {
+                SetProperty(ref _destinationDir, value);
+                RaisePropertyChanged();
+            }
         }
 
         private bool _sortAscending = true;
@@ -150,6 +162,8 @@ namespace CC.Module.FileExplorer.ViewModels
             }
             _eventAggregator.GetEvent<DirectoryChangedEvent>()
                 .Publish(_actualPath);
+
+            DestinationDir = _actualPath;
         }
     }
 }

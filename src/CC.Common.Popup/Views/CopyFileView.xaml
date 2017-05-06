@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="CC.Common.Popup.Views.CopyFileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:properties="clr-namespace:CC.Common.Popup.Properties"
+             xmlns:views="clr-namespace:CC.Common.Popup.Views"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             Width="400">
+
+    <i:Interaction.Triggers>
+        <prism:InteractionRequestTrigger SourceObject="{Binding NotificationRequest}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True" />
+        </prism:InteractionRequestTrigger>
+
+        <prism:InteractionRequestTrigger SourceObject="{Binding OverrideInfoNotification}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True">
+                <prism:PopupWindowAction.WindowContent>
+                    <views:OverrideInfoView x:Name="OverrideInfoView"/>
+                </prism:PopupWindowAction.WindowContent>
+            </prism:PopupWindowAction>
+        </prism:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
+    
+    <StackPanel>
+        <StackPanel Margin="10, 10, 10, 10">
+            <TextBlock x:Name="QuoteTextBlock" Text="{x:Static properties:Resources.CopyQuote}"/>
+            <ItemsControl ItemsSource="{Binding SelectedFiles}"
+                          Margin="5">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <TextBox Text="{Binding DestinationDir}"/>
+        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="AcceptButton"
+                    AutomationProperties.AutomationId="CopyFileAcceptButton"
+                    Grid.Column="0"
+                    Margin="10, 0, 10, 10"
+                    Command="{Binding AcceptCommand}"
+                    Content="{x:Static properties:Resources.Accept}"
+                    IsEnabled="{Binding IsEnabled}" />
+            <Button x:Name="CancelButton" AutomationProperties.AutomationId="CopyFileCancelButton" Grid.Column="1" Margin="10, 0, 10, 10" Command="{Binding CancelCommand}" Content="{x:Static properties:Resources.Cancel}"/>
+        </Grid>
+    </StackPanel>
+
+</UserControl>

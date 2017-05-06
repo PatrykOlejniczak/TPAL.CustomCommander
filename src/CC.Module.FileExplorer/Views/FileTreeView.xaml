@@ -1,0 +1,127 @@
+﻿<UserControl x:Class="CC.Module.FileExplorer.Views.FileTreeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:converters="clr-namespace:CC.Module.FileExplorer.Converters"
+             xmlns:views="clr-namespace:CC.Module.FileExplorer.Views"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <i:Interaction.Triggers>
+        <prism:InteractionRequestTrigger SourceObject="{Binding NotificationRequest}">
+            <prism:PopupWindowAction IsModal="True" CenterOverAssociatedObject="True" />
+        </prism:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
+    
+    <UserControl.Resources>
+        <converters:SizeToBytesConverter x:Key="SizeToBytesConverter"/>
+        <converters:DateToCultureDateConverter x:Key="DateToCultureDateConverter"/>
+        <converters:IsSelectedToRedForeGround x:Key="IsSelectedToRedForeGround"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <views:DriverManagerView Grid.Row="0"
+                                 x:Name="DriverManagerView"
+                                 Width="50"
+                                 Margin="2"
+                                 HorizontalAlignment="Left"/>
+        <TextBlock Grid.Row="1"
+                   Margin="2"
+                   Text="{Binding DestinationDir}" />
+        <ListView Grid.Row="2"
+                  x:Name="FilesListView"
+                  ItemsSource="{Binding FilesView}"
+                  SelectionMode="Single">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <EventSetter Event="PreviewMouseRightButtonDown"
+                                 Handler="RightItemClick" />
+                    <EventSetter Event="PreviewMouseDoubleClick"
+                                 Handler="MouseItemDoubleClick" />
+                    <EventSetter Event="PreviewMouseLeftButtonDown"
+                                 Handler="LeftItemClick" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView x:Name="FilesGridView">
+                    <GridViewColumn Header="IsCustomModel" DisplayMemberBinding="{Binding IsCustomModel}" />
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Image Source="{Binding Icon}" Width="25" Height="15"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn>
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader x:Name="NameHeader"
+                                                  Content="Name"
+                                                  Command="{Binding SortFilesCommand}"
+                                                  CommandParameter="Name"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" 
+                                           Foreground="{Binding IsSelected, Converter={StaticResource IsSelectedToRedForeGround}}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn>
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader x:Name="ExtensionHeader"
+                                                  Content="Extension"
+                                                  Command="{Binding SortFilesCommand}"
+                                                  CommandParameter="Extension"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Extension}" 
+                                           Foreground="{Binding IsSelected, Converter={StaticResource IsSelectedToRedForeGround}}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn>
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader x:Name="SizeHeader"
+                                                  Content="Size"
+                                                  Command="{Binding SortFilesCommand}"
+                                                  CommandParameter="Size"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Foreground="{Binding IsSelected, Converter={StaticResource IsSelectedToRedForeGround}}">
+                                    <TextBlock.Text>
+                                        <MultiBinding Converter="{StaticResource SizeToBytesConverter}">
+                                            <Binding Path="Size"/>
+                                            <Binding Path="Extension"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn>
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader x:Name="CreatedDateHeader"
+                                                  Content="Created date"
+                                                  Command="{Binding SortFilesCommand}"
+                                                  CommandParameter="CreatedDate"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding CreatedDate, Converter={StaticResource DateToCultureDateConverter}}" 
+                                           Foreground="{Binding IsSelected, Converter={StaticResource IsSelectedToRedForeGround}}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</UserControl>
